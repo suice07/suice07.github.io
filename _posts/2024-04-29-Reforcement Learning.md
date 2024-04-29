@@ -31,13 +31,11 @@ $$ Q^{\mu}(s,a) = \mathbb{E} [\sum_{t = 0}^{\infty} \gamma^{t}r(s_{t},a_{t})|s_{
 $r(s,a)$ 表示在状态 $s$ 执行动作 $a$ 后，环境反馈的奖励; $\gamma$ 为折扣因子, $\gamma \in (0,1)$ ; $\rho_{\mu}$ 则代表agent按照策略 $\mu$ 行动时，它会遇到的动作、状态对所服从的分布
 
 #### 1.1.2 Actor（策略函数）：
-
 $$ \mu_{\theta}(s): S \rightarrow A $$
 
 策略函数由参数$\theta$确定，将状态空间的一个点映射到动作空间的一个点，这也就是决策过程。
 
 算法公式：定义了DPG需要的两个主要成分后，利用critic直接优化actor的思想，就有了DPG的核心公式：
-
 $$ \max_{\theta} \mathbb{E}_{s \sim Data}[Q_{\omega}^{\mu}(s,\mu_{\theta}(s))] $$ 
 
 此时，$Q$ 函数参数固定，只调整策略函数 $\mu$ ；$Q$ 函数另外单独训练，训练方式同 Q-learning(须额外描述)。
@@ -45,8 +43,6 @@ $$ \max_{\theta} \mathbb{E}_{s \sim Data}[Q_{\omega}^{\mu}(s,\mu_{\theta}(s))] $
 
 寻找最优决策：DPG的最终目的还是在于调整策略，所以先假设已有最优的critic: $Q^{*}$
 ，在 $t$ 时刻遇到某个状态 $s_{t}$ ，要求此刻最优动作 $a^{*}_{t}$ , 我们需要做的就是固定住 $Q^{*}$ 函数输入端 $(s,a)$ 当中的状态 $s$ 为 $s_{t}$ ,不断调整输入动作 $a$ ，直到 $Q^{*}$ 的输出值最大，此时的动作 $a$ 即为最优决策，这个操作等价于一般的Q-learning中的greedy决策方式：
-
-
 $$ a_{t}^{*} = argmax_{a} Q^{*}(s_{t},a) $$ 
 
 
