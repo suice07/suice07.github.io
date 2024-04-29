@@ -10,9 +10,9 @@ SAC提出前，主流的深度强化学习算法（Deep Reinforcement Learning, 
 DDPG是基于DPG([Deterministic Policy Gradient](http://proceedings.mlr.press/v32/silver14.pdf))实现的DRL算法。
 
 DPG针对连续动作空间的控制任务在传统的PG（[Policy Gradient](https://proceedings.neurips.cc/paper_files/paper/1999/file/464d828b85b0bed98e80ade0a5c43b0f-Paper.pdf)，[OpenAI的PG教程](https://spinningup.openai.com/en/latest/spinningup/rl_intro3.html)）算法上做了改进，将策略函数的输出从一个分布（常用高斯分布）转变为一个唯一确定的动作（通常由一个向量表示，这也是“deterministic“的由来）:
-$$ \alpha \sim \pi(\dot|s) $$
+$$ \alpha \sim \pi(\bullet|s) \rightarrow\rightarrow \alpha = \mu(s) $$
 
-同时，DPG引入了AC(Actor-Critic)框架，让值函数（critic）直接指导策略（actor）优化。DDPG可以视为DPG算法的深度学习版实现，并在DPG上加入了几个提高效率的小技巧：Replay buffers, Target networks。
+同时，DPG引入了AC([Actor-Critic](https://towardsdatascience.com/understanding-actor-critic-methods-931b97b6df3f))框架，让值函数（critic）直接指导策略（actor）优化。DDPG可以视为DPG算法的深度学习版实现，并在DPG上加入了几个提高效率的小技巧：Replay buffers, Target networks。
 
 DPG的思路：
 
@@ -21,12 +21,13 @@ DPG的思路：
 下面我们先定义AC框架的两个基本成分：
 
 #### 1. Critic （值函数）：
+$$ Q^{\mu}_{\omega}(s,a) : S \times A \rightarrow \mathbb{R} $$
 
-函数由参数 （DRL中就是网络参数）控制，将一个状态和动作对映射到一个实数。同 Q-learning，该实数表示，智能体（agent）在状态 执行动作 ，并在之后按照策略 行动，agent 所能获得的预期收益：
+$Q$ 函数由参数 （DRL中就是网络参数）控制，将一个状态和动作对映射到一个实数。同 Q-learning，该实数表示，智能体（agent）在状态 执行动作 ，并在之后按照策略 行动，agent 所能获得的预期收益：
 
-表示在状态 执行动作 后，环境反馈的奖励； 为折扣因子， ； 则代表agent按照策略
+$$ Q^{\mu}(s,a) = \mathbb{E} [\sum_{t = 0}^{\infty} \gamma^{t}r(s_{t},a_{t})|s_{0} = s,a_{0} = a] $$
 
-    行动时，它会遇到的动作、状态对所服从的分布
+$r(s,a)$ 表示在状态 $s$ 执行动作$a$ 后，环境反馈的奖励；$\gamma$ 为折扣因子，$\gamma \in (0,1)$ ；$\rho_{\mu}$ 则代表agent按照策略$\mu$ 行动时，它会遇到的动作、状态对所服从的分布
 
 #### 2.Actor（策略函数）：
 
