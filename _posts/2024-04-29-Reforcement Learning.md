@@ -37,7 +37,7 @@ $$ \mu_{\theta}(s): S \rightarrow A $$
 
 $$ \max_{\theta}\mathbb{E}_{s \sim Data}[Q^{\mu}_{\omega}(s,\mu_{\theta}(s))] \tag{1.1} $$ 
 
-$$ \max_{\theta}\mathbb{E}_{s \sim \text{Data}}[Q^{\mu}_{\omega}(s,\mu_{\theta}(s))] \tag{1.1} $$
+$$ \max_{\theta}\mathbb{E}_{s \sim {Data}}[Q^{\mu}_{\omega}(s,\mu_{\theta}(s))] \tag{1.1} $$
 
 此时，$Q$ 函数参数固定，只调整策略函数 $\mu$ ；$Q$ 函数另外单独训练，训练方式同 Q-learning(须额外描述)。
 
