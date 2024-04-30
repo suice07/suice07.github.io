@@ -78,7 +78,7 @@ PPO的思路：
 
 PPO的基本思想跟PG算法一致，便是直接根据策略的收益好坏来调整策略。
 
-作为一个AC算法，它的基本框架跟[Stochastic Actor-critic](https://proceedings.neurips.cc/paper_files/paper/1999/file/464d828b85b0bed98e80ade0a5c43b0f-Paper.pdf)算法一致，所以先定义PPO的策略函数actor：此时动作 $a$ 服从一个受参数 $\theta$ 控制的条件分布，可以理解为，假如面对某个状态 $s_{t}$ ，agent做出决策动作 $a_{t}$ 的概率 $ \\mathbb{P} $
+作为一个AC算法，它的基本框架跟[Stochastic Actor-critic](https://proceedings.neurips.cc/paper_files/paper/1999/file/464d828b85b0bed98e80ade0a5c43b0f-Paper.pdf)算法一致，所以先定义PPO的策略函数actor：此时动作 $a$ 服从一个受参数 $\theta$ 控制的条件分布，可以理解为，假如面对某个状态 $s_{t}$ ，agent做出决策动作 $a_{t}$ 的概率 $\mathbb{P}$
 
 
 再定义一个值函数critic：
