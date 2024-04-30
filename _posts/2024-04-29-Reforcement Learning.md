@@ -37,7 +37,7 @@ $$ \mu_{\theta}(s): S \rightarrow A $$
 
 $$ \max_{\theta} \mathbb{E}_{s \sim Data} \tag{1.1} $$
 
-$$ [Q^{\mu}_{\omega}\mu_{\theta}(s)] $$
+$$ [Q^{\mu}_{\omega} \mu_{\theta}(s)] $$
 <!-- $$ \max_{\theta} \mathbb{E}_{s \sim \text{Data}}[Q^{\mu}_{\omega}(s,\mu_{\theta}(s))] \tag{1.1} $$ -->
 
 
