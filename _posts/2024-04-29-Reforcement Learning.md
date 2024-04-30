@@ -64,13 +64,13 @@ $$ \theta\_{target} = argmax\_{\theta}Q\^{\*}(s\_{t},\mu\_{\theta}(s\_{t})) $$
 
 衍生成果：
 
-(D4PG)[https://arxiv.org/abs/1804.08617]（引入分布式的critic，并使用多个actor（learner）共同与环境交互）
+[D4PG](https://arxiv.org/abs/1804.08617)（引入分布式的critic，并使用多个actor（learner）共同与环境交互）
 
-(TD3)[https://arxiv.org/abs/1802.09477]（参考了double Q-learning的思想来优化critic，延缓actor的更新，计算critic的优化目标时在action上加一个小扰动）
+[TD3](https://arxiv.org/abs/1802.09477)（参考了double Q-learning的思想来优化critic，延缓actor的更新，计算critic的优化目标时在action上加一个小扰动）
 
 ### 1.2. PPO(Proximal Policy Optimization Algorithms)
 
-PPO是TRPO((Trust Region Policy Optimization)[https://arxiv.org/abs/1502.05477])的简化版，二者的目标都是：在PG算法的优化过程中，使性能单调上升，并且使上升的幅度尽量大。
+PPO是TRPO([Trust Region Policy Optimization](https://arxiv.org/abs/1502.05477))的简化版，二者的目标都是：在PG算法的优化过程中，使性能单调上升，并且使上升的幅度尽量大。
 
 PPO同样使用了AC框架，不过相比DPG更加接近传统的PG算法，采用的是随机分布式的策略函数（Stochastic Policy），智能体（agent）每次决策时都要从策略函数输出的分布中采样，得到的样本作为最终执行的动作，因此天生具备探索环境的能力，不需要为了探索环境给决策加上扰动；PPO的重心会放到actor上，仅仅将critic当做一个预测状态好坏（在该状态获得的期望收益）的工具，策略的调整基准在于获取的收益，不是critic的导数。
 
@@ -78,7 +78,7 @@ PPO的思路：
 
 PPO的基本思想跟PG算法一致，便是直接根据策略的收益好坏来调整策略。
 
-作为一个AC算法，它的基本框架跟(Stochastic Actor-critic)[https://proceedings.neurips.cc/paper_files/paper/1999/file/464d828b85b0bed98e80ade0a5c43b0f-Paper.pdf]算法一致，所以先定义PPO的策略函数actor：此时动作 $a$ 服从一个受参数 $\theta$ 控制的条件分布，可以理解为，假如面对某个状态 $s_{t}$ ，agent做出决策动作 $a_{t}$ 的概率 $ \mathbb{P}(a\_{t}|s\_{t};\theta) = \pi\_{\theta}(a_{t}|s_{t})$
+作为一个AC算法，它的基本框架跟[Stochastic Actor-critic](https://proceedings.neurips.cc/paper_files/paper/1999/file/464d828b85b0bed98e80ade0a5c43b0f-Paper.pdf)算法一致，所以先定义PPO的策略函数actor：此时动作 $a$ 服从一个受参数 $\theta$ 控制的条件分布，可以理解为，假如面对某个状态 $s_{t}$ ，agent做出决策动作 $a_{t}$ 的概率 $ \mathbb{P}(a\_{t}|s\_{t};\theta) = \pi\_{\theta}(a_{t}|s_{t})$
 
 。
 
