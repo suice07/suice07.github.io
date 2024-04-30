@@ -35,7 +35,7 @@ $$ \mu_{\theta}(s): S \rightarrow A $$
 
 策略函数由参数 $\theta$ 确定，将状态空间的一个点映射到动作空间的一个点，这也就是决策过程。算法公式：定义了DPG需要的两个主要成分后，利用critic直接优化actor的思想，就有了DPG的核心公式：
 
-$$ \max_{\theta}\mathbb{E}_{s \sim Data} \tag{1.1}$$ 
+$$ \max_{\theta}\mathbb{E}_{s \sim Data}[Q_{\omega}^{\mu}]\tag{1.1}$$ 
 <!-- $$\max_{\theta}\mathbb{E}_{s \sim Data} [Q_{\omega}^{\mu}(s,\mu_{\theta}(s))] \tag{1.1}$$  -->
 
 此时，$Q$ 函数参数固定，只调整策略函数 $\mu$ ；$Q$ 函数另外单独训练，训练方式同 Q-learning(须额外描述)。
