@@ -81,7 +81,7 @@ PPO的基本思想跟PG算法一致，便是直接根据策略的收益好坏来
 作为一个AC算法，它的基本框架跟[Stochastic Actor-critic](https://proceedings.neurips.cc/paper_files/paper/1999/file/464d828b85b0bed98e80ade0a5c43b0f-Paper.pdf)算法一致，所以先定义PPO的策略函数actor：此时动作 $a$ 服从一个受参数 $\theta$ 控制的条件分布，可以理解为，假如面对某个状态 $s_{t}$ ，agent做出决策动作 $a_{t}$ 的概率 $\mathbb{P}(a_{t}|s\_{t};\theta) = \pi\_{\theta}(a\_{t}|s\_{t})$
 
 
-再定义一个值函数critic：$V\_{\omega}\^{\pi}(s) : S \rightarrow \mathbb{R}$
+再定义一个值函数critic： $V\_{\omega}\^{\pi}(s) : S \rightarrow \mathbb{R}$
 
 将状态映射到实数，该实数表示agent在状态
 会获得的期望收益， 是函数参数。与 函数稍有不同， 函数不考虑某个具体的决策的后果，而是综合考虑agent的行动满足策略 时，获得收益的期望：
