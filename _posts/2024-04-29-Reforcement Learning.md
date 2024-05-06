@@ -97,7 +97,7 @@ $s'$ 表示 $s$ 状态的下一步状态。$Q$ 函数与 $V$ 函数本质上是�
 
 #### 1.2.1 Stochastic Actor-critic的单步策略优化的目标函数可以表示为：
 
-其中， $A\^{\pi\_{theta}}(s,a)=r(s,a)+\gamma V\^{\pi\_{\theta}}(s')-V\^{\pi\_{\theta}}(s)$ ，这是advantage项，表示在 $s$ 状态下某一决策 $a$ 带来的期望收益 $r(s,a)+\gamma V\^{\pi\_{theta}}(s')$ 相比原本的期望收益 $V\^{\pi\_{\theta}}(s)$ 高多少（或者差多少），如果与原本决策一致则advantage为零。
+其中， $A\^{\pi\_{\theta}}(s,a)=r(s,a)+\gamma V\^{\pi\_{\theta}}(s')-V\^{\pi\_{\theta}}(s)$ ，这是advantage项，表示在 $s$ 状态下某一决策 $a$ 带来的期望收益 $r(s,a)+\gamma V\^{\pi\_{\theta}}(s')$ 相比原本的期望收益 $V\^{\pi\_{\theta}}(s)$ 高多少（或者差多少），如果与原本决策一致则advantage为零。
 
 原本 这个位置是决策的期望收益即 ，不过用advantage代替期望收益可以增加算法的稳定性，不过无论用哪个，公式的目的都是通过调整策略获取更高的期望收益。可以理解为，如果 值为正，则提高
 
