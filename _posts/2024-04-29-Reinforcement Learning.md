@@ -163,3 +163,8 @@ $\rho$ 表示在策略 $\pi$ 控制下，智能体(agent)会遇到的状态动�
 ### 2.3 Soft Value Function and Energy Based Policy
 
 与RL类似，在MERL中，有一套自成一脉的值函数，可以用于评价策略的好坏。参考标准RL和MERL的优化目标 (2.2), (2.3)，我们可以在原本RL的值函数上稍作修改，推出"soft value function"。
+
+#### 2.3.1 原本的值函数如下：
+
+standard Q function:
+$$ Q\^{\pi}(s,a) = \mathbb(E)\_{s\_{t},a\_{t}\sim \rho\_{\pi}}[\sum\^{\infty}\_{t=0}\gamma\^{t}r(s\_{t},a\_{t})|s\_{0}= s,a\_{0} = a] $$
