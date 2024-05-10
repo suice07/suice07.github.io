@@ -169,3 +169,9 @@ $\rho$ 表示在策略 $\pi$ 控制下，智能体(agent)会遇到的状态动�
 standard Q function:
 
 $$ Q\^{\pi}(s,a) = \mathbb{E}\_{s\_{t},a\_{t}\sim \rho\_{\pi}}[\sum\^{\infty}\_{t=0}\gamma\^{t}r(s\_{t},a\_{t})|s\_{0}= s,a\_{0} = a] $$
+
+standard V function:
+
+$$ V\^{\pi}(s,a) = \mathbb{E}\_{s\_{t},a\_{t}\sim \rho\_{\pi}}[\sum\^{\infty}\_{t=0}\gamma\^{t}r(s\_{t},a\_{t})|s\_{0}= s] $$
+
+根据MERL的目标函数(2.3), 引入熵, 得出**Soft Value Function(SVF)**:
