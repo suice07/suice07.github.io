@@ -111,5 +111,4 @@ $\pi\_{\theta\_{k}}$ 表示采集数据时与环境交互的策略, $\pi\_{\thet
 
 $$ L(\theta) = min(\frac{\pi\_{\theta}(a|s)}{\pi\_{\theta\_{k}}(a|s)}A\^{\pi\_{\theta\_{k}}}(s,a)), \text{clip}(\frac{\pi\_{\theta}(a|s)}{\pi\_{\theta\_{k}}(a|s)}, 1-\epsilon, 1+\epsilon)A\^{\pi\_{\theta\_{k}}}(s,a) $$
 
-其中
-是一个需要手动调整的参数，大于0。在clip函数的帮助下， 的值被限制在 中，确定了策略优化时的变化幅度不会太大。
+其中 $\epsilon$ 是一个需要手动调整的参数，大于0。在clip函数的帮助下，$\frac{\pi\_{\theta}(a|s)}{\pi\_{\theta\_{k}}(a|s)}$ 的值被限制在 $(1-\epsilon, 1+\epsilon)$ 中，确定了策略优化时的变化幅度不会太大。
