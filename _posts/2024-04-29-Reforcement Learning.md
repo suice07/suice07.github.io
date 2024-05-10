@@ -105,10 +105,10 @@ $s'$ 表示 $s$ 状态的下一步状态。$Q$ 函数与 $V$ 函数本质上是�
 
 $$ L(\theta) = \frac{\pi\_{\theta}(a|s)}{\pi\_{\theta\_{k}}(a|s)}A\^{\pi\_{\theta\_{k}}}(s,a) $$
 
-$\pi\_{\theta\_{k}}$ 表示采集数据时与环境交互的策略, $\pi\_{\theta}$ 表示当前正在训练的策略，此时因为训练的策略与采集数据时的策略不同，引入 $\frac{\pi\_{\theta}(a|s)}{\pi\_{\theta\_{k}}(a|s)} $ 项进行修正，使其接近on-policy。由于训练策略 $\pi\_{\theta}$ 时的数据不是源于它自己与环境的交互，因此这被称为off-policy算法。
+$\pi\_{\theta\_{k}}$ 表示采集数据时与环境交互的策略, $\pi\_{\theta}$ 表示当前正在训练的策略，此时因为训练的策略与采集数据时的策略不同，引入 $\frac{\pi\_{\theta}(a|s)}{\pi\_{\theta\_{k}}(a|s)}A\^{\pi\_{\theta\_{k}}}(s,a)$ 项进行修正，使其接近on-policy。由于训练策略 $\pi\_{\theta}$ 时的数据不是源于它自己与环境的交互，因此这被称为off-policy算法。
 
 #### 1.2.3 而为了实现（修正：近似地的接近TRPO，不能保证单调提升）性能的单调上升，PPO的做法是训练策略时，强行限制住策略的更新速度，
 
 $$ L(\theta) = min(\frac{\pi\_{\theta}(a|s)}{\pi\_{\theta\_{k}}(a|s)}A\^{\pi\_{\theta\_{k}}}(s,a)), \text{clip}(\frac{\pi\_{\theta}(a|s)}{\pi\_{\theta\_{k}}(a|s)}, 1-\epsilon, 1+\epsilon)A\^{\pi\_{\theta\_{k}}}(s,a) $$
 
-其中 $\epsilon$ 是一个需要手动调整的参数，大于0。在clip函数的帮助下，$\frac{\pi\_{\theta}(a|s)}{\pi\_{\theta\_{k}}(a|s)}$ 的值被限制在 $(1-\epsilon, 1+\epsilon)$ 中，确定了策略优化时的变化幅度不会太大。
+其中 $\epsilon$ 是一个需要手动调整的参数，大于0。在clip函数的帮助下，$\frac{\pi\_{\theta}(a|s)}{\pi\_{\theta\_{k}}(a|s)}A\^{\pi\_{\theta\_{k}}}(s,a)$ 的值被限制在 $(1-\epsilon, 1+\epsilon)$ 中，确定了策略优化时的变化幅度不会太大。
