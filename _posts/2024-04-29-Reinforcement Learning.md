@@ -150,4 +150,16 @@ SAC中的熵（entropy）可以理解为混乱度，无序度，随机程度，�
 
 **熵的计算**：熵是用于衡量随机变量的随机性，实际计算时直接考虑其服从的随机分布。现在要计算变量 $x$ 的熵值 ，而 $x$ 服从分布 $P$ ，则 $x$ 的熵 $H(P)$ 为: $ H(P) = E\_{x\sim P}[-logP(x)] $ ，标准的RL算法目标，是找到能收集最多累计收益的策略，表达式为：
 
-$$ \pi\^{*}\_{std} = argmax\_{\pi} \sum\_{t}\mathbb{E}\_{(s\_{t},a\_{t})\sim \rho\_{\pi}}[r(s\_{t}, a\_{t})] $$
+$$ \pi\^{*}\_{std} = argmax\_{\pi} \sum\_{t}\mathbb{E}\_{(s\_{t},a\_{t})\sim \rho\_{\pi}}[r(s\_{t}, a\_{t})]  \tag{2.2} $$
+
+而引入了熵最大化的RL算法的目标策略：
+
+$$ \pi\^{*}\_{MaxEnt} = argmax\_{\pi} \sum\_{t}\mathbb{E}\_{(s\_{t},a\_{t})\sim \rho\_{\pi}}[r(s\_{t}, a\_{t}) + \alpha H(\pi(\bullet|s\_{t}))]  \tag{2.3} $$
+
+$\rho$ 表示在策略 $\pi$ 控制下，智能体(agent)会遇到的状态动作对(state-action pair)所服从的分布。$\alpha$ 为超参数(温度系数)，用于调整对熵值的重视程度。 
+
+可以看到，相比原本的RL算法，MERL只是在奖励后多了一个熵值项，使得策略在最大化累计收益的同时，最大化策略的熵值。不过，MERL的优化目标不只是灵机一动地给原本的RL目标加上一个正则化项，这个优化目标可以从概率图模型（[Probabilistic Graphic Model](https://xlnwel.github.io/blog/reinforcement%20learning/PGM/)）推出，感兴趣的读者可以参考[SVI](https://xlnwel.github.io/blog/reinforcement%20learning/SVI/)。而SAC的作者则表示这个思路源于统计建模中的最大熵方法，最大熵模型的好处是：模型在匹配观察到的信息时，对未知的假设最少。
+
+### 2.3 Soft Value Function and Energy Based Policy
+
+与RL类似，在MERL中，有一套自成一脉的值函数，可以用于评价策略的好坏。参考标准RL和MERL的优化目标 (2.2), (2.3)，我们可以在原本RL的值函数上稍作修改，推出"soft value function"。
