@@ -109,7 +109,7 @@ $\pi\_{\theta\_{k}}$ 表示采集数据时与环境交互的策略，$\pi\_{\the
 
 #### 1.2.3 而为了实现（修正：近似地的接近TRPO，不能保证单调提升）性能的单调上升，PPO的做法是训练策略时，强行限制住策略的更新速度，
 
-$$ L(\theta) = min(\frac{\pi\_{\theta}(a|s)}{\pi\_{\theta\_{k}(a|s)}}A\^{\pi\_{\theta\_{k}}(s,a)}), \text{clip}(\frac{\pi\_{\theta}(a|s)}{\pi\_{\theta\_{k}(a|s)}}, 1-\eta, 1+\eta)A\^{\pi\_{\theta\_{k}}(s,a)} $$
+$$ L(\theta) = min(\frac{\pi\_{\theta}(a|s)}{\pi\_{\theta\_{k}(a|s)}}A\^{\pi\_{\theta\_{k}}(s,a)}), \text{clip}(\frac{\pi\_{\theta}(a|s)}{\pi\_{\theta\_{k}(a|s)}}, 1-\epsilon, 1+\epsilon)A\^{\pi\_{\theta\_{k}}(s,a)} $$
 
 其中
 是一个需要手动调整的参数，大于0。在clip函数的帮助下， 的值被限制在 中，确定了策略优化时的变化幅度不会太大。
