@@ -124,3 +124,17 @@ PPO在传统的PG算法上加入了如下改进
 - 引入AC框架，一方面免去PG每次优化策略都需要计算收益（Return）的操作，另一方面可以利用critic计算单步决策的advantage $(r(s,a)+\gamma V(s\^{'})-V(s))$ 。
 - 使用[GAE](https://arxiv.org/abs/1506.02438), batch training, replay buffer等提高算法性能技巧。
 - 严格约束策略参数的更新速度， 使得策略的表现尽量单调上升
+
+### 1.3 主流算法缺陷
+
+- PPO：
+依赖于importance sampling实现的off-policy算法在面对太大的策略差异时将无能为力（正在训练的policy与实际与环境交互时的policy差异过大），所以学者们认为PPO其实是一种on-policy的算法，这类算法在训练时需要保证生成训练数据的policy与当前训练的policy一致，对于过往policy生成的数据难以再利用，所以在sample efficiency这条衡量强化学习（Reinforcement Learning, RL）算法的重要标准上难以取得优秀的表现。
+
+[Evolution Strategies as a scalable alternative to reinforcement learning](https://arxiv.org/abs/1703.03864)
+
+- DDPG:
+DDPG：尽管DDPG在实验中有很不错的表现，但是在实际训练时对各种[超参数十分敏感](https://arxiv.org/abs/1709.06560)，所以DDPG在各种benchmark上的优秀表现实际上是精雕细琢而成，难以泛用到大量具体问题。
+
+## 2. [SAC](https://arxiv.org/abs/1801.01290)
+
+为了解决上述经典算法的问题，Tuomas Haarnoja 提出了他的SAC算法，接下来我们正式引入主角SAC。SAC是基于最大熵（maximum entropy）这一思想发展的RL算法，其采用与PPO类似的随机分布式策略函数（Stochastic Policy），并且是一个off-policy，actor-critic算法，与其他RL算法最为不同的地方在于，SAC在优化策略以获取更高累计收益的同时，也会最大化策略的熵。SAC在各种常用的benchmark以及真实的机器人控制任务中性能优秀，而且表现稳定，具有极强的抗干扰能力，是2018年强化学习领域的巨大突破。
