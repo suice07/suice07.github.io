@@ -112,3 +112,8 @@ $\pi\_{\theta\_{k}}$ 表示采集数据时与环境交互的策略, $\pi\_{\thet
 $$ L(\theta) = min(\frac{\pi\_{\theta}(a|s)}{\pi\_{\theta\_{k}}(a|s)}A\^{\pi\_{\theta\_{k}}}(s,a)), \text{clip}(\frac{\pi\_{\theta}(a|s)}{\pi\_{\theta\_{k}}(a|s)}, 1-\epsilon, 1+\epsilon)A\^{\pi\_{\theta\_{k}}}(s,a) $$
 
 其中 $\epsilon$ 是一个需要手动调整的参数，大于0。在clip函数的帮助下, $\frac{\pi\_{\theta}(a|s)}{\pi\_{\theta\_{k}}(a|s)}$ 的值被限制在 $(1-\epsilon, 1+\epsilon)$ 中，确定了策略优化时的变化幅度不会太大。
+
+##### 1.2.3.1 [图解PPO](https://jonathan-hui.medium.com/rl-proximal-policy-optimization-ppo-explained-77f014ec3f12)
+![pgpic](../img/pg_pic.png)
+![ppopic](../img/ppo_pic.png)
+可以看出，PPO相比原始的PG算(及AC算法)法最为不同的地方在于，每次优化策略时，让策略（参数）朝着优化的方向改进，同时将策略变化限制在一定的范围内。综合起来就是，PPO即希望快点上山，又要注意不能掉下去； 而传统的PG算法则只管用最快速度上山。虽然PPO生硬地限制了策略的更新速度，但是也尽可能保证了更新后的策略不会崩溃（掉下山），最终在效率上PPO反而可以更胜一筹。
