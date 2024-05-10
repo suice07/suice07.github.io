@@ -116,4 +116,11 @@ $$ L(\theta) = min(\frac{\pi\_{\theta}(a|s)}{\pi\_{\theta\_{k}}(a|s)}A\^{\pi\_{\
 ##### 1.2.3.1 [图解PPO](https://jonathan-hui.medium.com/rl-proximal-policy-optimization-ppo-explained-77f014ec3f12)
 ![pgpic](../img/pg_pic.png)
 ![ppopic](../img/ppo_pic.png)
-可以看出，PPO相比原始的PG算(及AC算法)法最为不同的地方在于，每次优化策略时，让策略（参数）朝着优化的方向改进，同时将策略变化限制在一定的范围内。综合起来就是，PPO即希望快点上山，又要注意不能掉下去； 而传统的PG算法则只管用最快速度上山。虽然PPO生硬地限制了策略的更新速度，但是也尽可能保证了更新后的策略不会崩溃（掉下山），最终在效率上PPO反而可以更胜一筹。
+
+可以看出，PPO相比原始的PG算(及AC算法)法最为不同的地方在于(左为PG，右为PPO)，每次优化策略时，让策略（参数）朝着优化的方向改进，同时将策略变化限制在一定的范围内。综合起来就是，PPO即希望快点上山，又要注意不能掉下去； 而传统的PG算法则只管用最快速度上山。虽然PPO生硬地限制了策略的更新速度，但是也尽可能保证了更新后的策略不会崩溃（掉下山），最终在效率上PPO反而可以更胜一筹。
+
+PPO在传统的PG算法上加入了如下改进
+- 引入importantce sampling技巧，使PG算法成为可以利用过往数据的off-policy算法。
+- 引入AC框架，一方面免去PG每次优化策略都需要计算收益（Return）的操作，另一方面可以利用critic计算单步决策的advantage $(r(s,a)+\gammaV(s\^{'})-V(s))$ 。
+- 使用[GAE](https://arxiv.org/abs/1506.02438), batch training, replay buffer等提高算法性能技巧。
+- 严格约束策略参数的更新速度， 使得策略的表现尽量单调上升
