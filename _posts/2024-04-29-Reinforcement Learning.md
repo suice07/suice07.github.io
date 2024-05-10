@@ -138,3 +138,12 @@ DDPG：尽管DDPG在实验中有很不错的表现，但是在实际训练时对
 ## 2. [SAC](https://arxiv.org/abs/1801.01290)
 
 为了解决上述经典算法的问题，Tuomas Haarnoja 提出了他的SAC算法，接下来我们正式引入主角SAC。SAC是基于最大熵（maximum entropy）这一思想发展的RL算法，其采用与PPO类似的随机分布式策略函数（Stochastic Policy），并且是一个off-policy，actor-critic算法，与其他RL算法最为不同的地方在于，SAC在优化策略以获取更高累计收益的同时，也会最大化策略的熵。SAC在各种常用的benchmark以及真实的机器人控制任务中性能优秀，而且表现稳定，具有极强的抗干扰能力，是2018年强化学习领域的巨大突破。
+
+### 2.1 简单理解SAC基本思想
+
+SAC中的熵（entropy）可以理解为混乱度，无序度，随机程度，熵越高就表示越混乱，其包含的信息量就更多。假设有一枚硬币，不论怎么投都是正面朝上，则硬币的正反这一变量的熵就低，如果正反出现的概率都为0.5，则该变量的熵相对更高。[参考](https://spinningup.openai.com/en/latest/algorithms/sac.html)
+
+将熵引入RL算法的好处为，可以让策略（policy）尽可能随机，agent可以更充分地探索状态空间
+，避免策略早早地落入局部最优点（local optimum），并且可以探索到多个可行方案来完成指定任务，提高抗干扰能力。
+
+### 2.2 最大化熵强化学习(Maximun Entropy Reinforcement Learning, MERL)
