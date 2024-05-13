@@ -191,3 +191,23 @@ Q\^{\pi}\_{soft}(s,a) &= \mathbb{E}\_{s\^{'}\sim p(s\^{'}|s,a), a\^{'}\sim \pi}[
 &= \mathbb{E}\_{s\^{'}\sim p(s\^{'}|s,a)}[r(s,a)+\gamma V\^{\pi}\_{soft}(s\^{'})]  
 \end{aligned} 
 $$
+上述式1.和式2.就是 $Q\_{soft}$ 的Bellman equation, 在进行策略评估(policy evaluation)时， MERL算法就用上述式1.和式2.进行值迭代(Value iteration)
+
+$$
+\begin{aligned} 
+V\^{\pi}\_{soft}(s,a) &= \mathbb{E}\_{a\^{'}\sim \pi}[(Q\^{\pi}\_{soft}(s\^{'},a\^{'})+\alpha H(\pi(\bullet|s\^{'})))] \\ 
+&= \mathbb{E}\_{a\sim \pi}[Q\^{\pi}\_{soft}(s,a) - \alpha log\pi(a|s)]  
+\end{aligned} 
+$$
+上述式2.就是SAC算法中 $V\_{soft}$ 函数的值迭代公式，不过一开始并没有用在soft Q-learning中，soft Q-learning中使用的 $V$ 函数定义会在soft Q-learning部分提及。
+
+Energy Based Policy(EBP)
+MERL采用了独特的策略模型。为了适应更复杂的任务，MERL中的策略不再是以往的高斯分布形式，而是用基于能量的模型（energy-based model）来表示策略:
+
+$$ \pi(a\_{t}|s\_{t}) \varpropto exp(\varepsilon(s\_{t},a\_{t}))$$
+
+$\varepsilon$ 为能量函数，可以用神经网络进行拟合。MERL中，为了让EBP与值函数联系起来，设定：
+
+$$ \varepsilon(s\_{t},a\_{t}) = - \frac{1}{\alpha}Q\_{soft}(s\_{t},a\_{t}) $$
+
+
