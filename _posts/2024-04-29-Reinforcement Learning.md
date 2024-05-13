@@ -210,4 +210,10 @@ $\varepsilon$ 为能量函数，可以用神经网络进行拟合。MERL中，�
 
 $$ \varepsilon(s\_{t},a\_{t}) = - \frac{1}{\alpha}Q\_{soft}(s\_{t},a\_{t}) $$
 
+所以：
 
+$$ \pi(a_{t}|s\_{t})\varpropto exp(\frac{1}{\alpha}Q\_{soft}(s\_{t},a\_{t})) \tag{2.10} $$
+
+下图展示了一般的高斯分布策略（左）与基于能量的策略（右）的区别。可以看出基于能量的模型在面对多模态（multimodal）的值函数 $Q(s,a)$ 时，具有更强的策略表达能力，而一般的高斯分布只能将决策集中在 值更高的部分，忽略其他次优解。
+
+![pgpic](../img/multimodal_q_func.png) [source](https://bair.berkeley.edu/blog/2017/10/06/soft-q-learning/)
