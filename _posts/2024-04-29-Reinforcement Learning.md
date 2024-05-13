@@ -185,9 +185,5 @@ $$ V\^{\pi}\_{soft}(s) = \mathbb{E}\_{s\_{t},a\_{t}\sim \rho\_{\pi}}[\sum\^{\inf
 
 观察公式(2.4)(2.5)可知， soft Q 与 soft V 存在联系:
 
-$$
-\begin{align} 
-Q\^{\pi}\_{soft}(s,a) &= \mathbb{E}\_{s\^{'}\sim p(s\^{'}|s,a), a\^{'}\sim \pi}[r(s,a)+\gamma(Q\^{\pi}\_{soft}(s\^{'},a\^{'})+\alpha H(\pi(\bullet|s\^{'})))]  \tag{2.6}\\
-&= \mathbb{E}\_{s\^{'}\sim p(s\^{'}|s,a)}[r(s,a)+\gamma V\^{\pi}\_{soft}(s\^{'})]  \tag_{2.7} 
-\end{align}
-$$
+$$ \begin{align} Q\^{\pi}\_{soft}(s,a) &= \mathbb{E}\_{s\^{'}\sim p(s\^{'}|s,a), a\^{'}\sim \pi}[r(s,a)+\gamma(Q\^{\pi}\_{soft}(s\^{'},a\^{'})+\alpha H(\pi(\bullet|s\^{'})))]  \tag{2.6} \\ &= \mathbb{E}\_{s\^{'}\sim p(s\^{'}|s,a)}[r(s,a)+\gamma V\^{\pi}\_{soft}(s\^{'})]  \tag_{2.7} 
+\end{align} $$
