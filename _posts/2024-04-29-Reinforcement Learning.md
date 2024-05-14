@@ -235,7 +235,7 @@ SAC中使用的值迭代公式就是(2.6)，(2.7) 和 (2.9)，不过它的前身
 
 $$ V\_{soft}(s) = \alpha log \int exp(\frac{1}{\alpha}Q\_{soft}(s,a))da \tag{2.11} $$
 
-soft 的由来：观察这个式子，其中 $log\int exp$ 这个操作就被称为“softmax”，这也是全文中“soft”的由来。与之相对应的就是 Q-learning 中使用的“hardmax”: $ V(s) = max\_{a}Q(s,a) $ ,(2.11)等价于： $ V(s) = \alpha softmax\_{a}\frac{1}{\alpha}Q(s,a) $ （注意： 越接近0，softmax 就越接近 hardmax）.
+soft 的由来：观察这个式子，其中 $log\int exp$ 这个操作就被称为"softmax"，这也是全文中“soft”的由来。与之相对应的就是 Q-learning 中使用的"hardmax": $V(s) = max\_{a}Q(s,a)$ , (2.11)等价于: $V(s) = \alpha \text{softmax}\_{a}\frac{1}{\alpha}Q(s,a) $  (注意： 越接近0，softmax 就越接近 hardmax).
 
 对比 函数定义(2.11)与 (2.9)，发现同样是 $V$ 函数，SQL与SAC却大不相同，不过既然我们知道了softmax的含义，就可以猜测——当 (2.9) 取最大值，即策略最优时，两式其实在数值上相等。看懂SQL之后可以明白，因为SQL的策略可以直接由值函数表达，所以SQL可以直接将策略优化放进值迭代中。 (2.9) 与 (2.11) 的关系可以参考Q-learning，$Q$ 函数的标准定义是：
 
