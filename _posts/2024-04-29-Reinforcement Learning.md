@@ -339,3 +339,45 @@ q是用于采样的分布。
 
 $$ J\_{\pi}(\phi ;s\_{t}) = D\_{KL}(\pi\^{\phi}(\bullet|s\_{t})\| exp(\frac{1}{\alpha}(Q
 ^{\theta}\_{soft}(s\_{t},\bullet)-V^{\theta}\_{soft}))) $$
+
+### 2.5 Soft Policy Evaluation and Soft Policy Improvement in SAC
+前文提出了MERL的理论基础，并引出了SAC的前身 soft Q-learning，不过我们也可以看出其实现困难，最终的实现也是理论上soft Q-learning的近似。后来 Tuomas 改进优化了SQL，提出了SAC算法。
+
+先回到 Soft Policy Evaluation and Soft Policy Improvement
+
+#### 2.5.1 Soft Policy Evaluation
+前文已经提到过，SAC的值迭代式就是(2.6)，(2.7)，(2.9)，而Tuomas 在SAC中放弃了使用softmax来直接求 函数的值，所以自然就不需要再对动作空间积分。
+
+##### soft Q function的值迭代公式：
+
+$$
+\begin{aligned} 
+Q\^{\pi}\_{soft}(s,a) &= \mathbb{E}\_{s\^{'}\sim p(s\^{'}|s,a), a\^{'}\sim \pi}[r(s,a)+\gamma(Q\^{\pi}\_{soft}(s\^{'},a\^{'})+\alpha H(\pi(\bullet|s\^{'})))] \\ 
+&= \mathbb{E}\_{s\^{'}\sim p(s\^{'}|s,a)}[r(s,a)+\gamma V\^{\pi}\_{soft}(s\^{'})]  
+\end{aligned} 
+$$
+
+如果在SAC中，我们只打算维持一个值函数 $Q$ ，那么可以只用(2.6)式进行值迭代；如果需要同时维持 $V,Q$ 两个值函数，就使用(2.7)(2.9)进行值迭代。
+
+##### soft V function的值迭代公式：
+
+$$ V\^{\pi}\_{soft}(s,a) = \mathbb{E}\_{a\sim \pi}[Q\^{\pi}\_{soft}(s,a) - \alpha log\pi(a|s)] \tag{2.9} $$ 
+
+#### 2.5.2 Soft Policy Improvement
+
+SAC中的理想策略依然是(2.10)的EBP形式，不过由于EBP无法采样的问题依然存在，所以只能用一个高斯分布 $\pi$ 来代替EBP与环境交互，随后在策略优化时，让这个高斯分布尽可能向EBP靠近。 $\pi$ 与EBP的距离用KL-divergence来衡量。策略优化公式为：
+
+$$ \pi\_{new} = argmin\_{\pi\in\Pi}D\_{KL}(\pi(\bullet|s\_{t})\|\frac{exp(\frac{1}{\alpha}Q\^{\pi\^{old}}\_{soft}(s\_{t},\bullet))}{Z\^{\pi\_{old}}\_{soft}(s\_{t})}) \tag{2.15} $$
+
+其中 $\Pi$ 表示可选的策略集合，实际上就是带参数的高斯分布的集合。$Z$ 函数代替了(2.14)中的 $exp(\frac{1}{\alpha}V\^{\pi\_{old}\_{soft}(s\_{t})})$ 作为配分函数，用于归一化分布，不过对于 $\pi(s\_{t})$ 来说，两者都是常数，在实际计算时二者都可以直接忽略。同时也由于这个原因，在SAC中也不用再维持 $V$ 函数。
+作者在论文附录B.2中证明了这个公式可以像(2.14)一样保证策略的优化，不过实际上在后文的(2.15)展开式中可以直接发现其与DPG的联系。
+
+#### 2.5.3 Soft Policy Iteration
+与大多数RL算法一样，算法交替执行 Soft Policy Evaluation 与 Soft Policy Improvement 这两个步骤，就可以收敛到最优的值函数与最优策略，这一过程被称为Soft Policy Iteration
+
+#### 2.5.4 SAC中策略评估与策略优化的实现
+SAC的实际实现中，值函数与策略各由一个由参数控制的神经网络来拟合。我们把 $Q$ 函数和策略分别定义为 $Q\_{theta}(s,a)$ 和 $\pi\_{\phi}(\bullet|s)$。$Q$ 函数接收输入状态动作对 $(s,a)$ 输出一个实数值作为 $Q$ 值；策略接收输入状态 $s$ ，输出一个关于动作的分布，作为策略（其实就是输出一个高斯分布的均值 $\mu$ 与标准差 $\sigma$ ），需要一个确切的动作时，则对均值 $\mu$ ，标准差 $\sigma$ 的高斯分布进行一次采样，采样结果作为策略的决策动作。
+
+根据(2.6)，可以得出函数训练时的损失函数：
+
+$$ J\_{Q}(\theta) = \mathbb{E}\_{(s\_{t},a\_{t},s\_{t+1})\sim \mathcal{D},a\_{t+1}\sim \pi\_{\phi}}[\frac{1}{2}(Q\_{\theta}(s\_{t},a\_{t})-(r(s\_{t},a\_{t})+\gamma(Q\_{\theta}(s\_{t+1},a\_{t+1})-\alpha log(\pi\_{\phi}(\pi\_{\phi}(a\_{t+1}|s\_{t+1}))))))^{2}] \tag{2.16} $$
