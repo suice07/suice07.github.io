@@ -333,3 +333,9 @@ $$ \pi\_{new} = \frac{exp(\frac{1}{\alpha}Q\^{\pi\_{old}}\_{soft}(s\_{t},a\_{t})
 $$ V\^{\theta}\_{soft}(s) = \alpha log \mathbb{E}\_{q\_{a\^{'}}}[\frac{exp(\frac{1}{\alpha}Q\^{\theta}\_{soft}(s\_{t},a\^{'}))}{q\_{a\^{'}}(a\^{'})}] $$
 
 q是用于采样的分布。
+
+2. 基于能量的模型是intractable。虽然根据(2.14)，策略函数可以直接用值函数表示成EBP，但是，表示出的EBP却不能像一般的高斯分布一样直接对其进行采样，SQL理论上的用能量模型与环境交互的操作无法实现。
+针对第二个问题，作者使用近似推理技术，如马尔可夫链蒙特卡罗(Markov chain Monte Carlo)。同时为了加速推理，算法使用了Amortized Stein variational gradient descent (SVGD) 训练的推理网络生成近似样本。其实就是作者使用了一个可以用来表示策略的网络（state-conditioned stochastic network）来代替EBP进行采样。随后利用KL散度来缩小用代理策略 $\pi^{phi}$ 与EBP之间的差距：
+
+$$ J\_{\pi}(\phi ;s\_{t}) = D\_{KL}(\pi\^{\phi}(\bullet|s\_{t})\| exp(\frac{1}{\alpha}(Q
+^{\theta}\_{soft}(s\_{t},\bullet)-V^{\theta}\_{soft}))) $$
