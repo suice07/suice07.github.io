@@ -268,6 +268,6 @@ $$ \pi(a\_{T}|s\_{T}) = \frac{exp(\frac{1}{\alpha}r(s\_{T},a\_{T}))}{\int exp \f
 
 $$ Q(s\_{T},a\_{T}) = r(s\_{T},a\_{T}) $$
 
-$$ V(s\_{T} = \alpha log\int exp(\frac{1}{\alpha}Q(s\_{T},a)))da $$
+$$ V(s\_{T}) = \alpha log\int exp(\frac{1}{\alpha}Q(s\_{T},a))da $$
 
 所以有：
