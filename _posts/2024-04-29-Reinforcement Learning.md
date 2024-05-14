@@ -274,7 +274,7 @@ $$ V(s\_{T}) = \alpha log\int exp(\frac{1}{\alpha}Q(s\_{T},a))da $$
 
 $$
 \begin{aligned} 
-\pi(a\_{T}|s\_{T}) = \frac{exp(\frac{1}{\alpha}Q(s\_{T},a\_{T}))}{\int exp \frac{1}{\alpha}Q(s\_{T},a)} da  \\ 
-&= argmax\_{\pi} \int[Q(s\_{T},a\_{T}) - \alpha log \pi(a\_{T}|s\_{T})]\pi(a\_{T}|s\_{T})da\_{T}
+\pi(a\_{T}|s\_{T}) &= \frac{exp(\frac{1}{\alpha}Q(s\_{T},a\_{T}))}{\int exp \frac{1}{\alpha}Q(s\_{T},a)} da \\ 
+&= exp(\frac{1}{\alpha}(Q(s\_{T},a\_{T})-V(s\_{T})))
 \end{aligned} 
 $$
