@@ -251,4 +251,10 @@ $$ Q\^{\pi}(s,a) = r(s,a) +\gamma max\_{a\_{'}}(Q\^{\pi}(s\^{'},a\^{'})) $$
 
 $$ \mathcal{J}(\pi) = \sum\^{T}\_{t=1} \gamma\^{t-1}E\_{s\_{t}\_{a\_{t}\sim \rho\_{\pi}}}[r(s\_{t},a\_{t})+\alpha\mathcal{H}(\pi(\bullet|s\_{t}))] \tag{2.12} $$
 
-我们要做的就是调整输入 $\pi$ ，让目标函数 $\mathcal{J}$ 最大化。那么，由易到难，先解 $\mathcal{J}$ 中的最后一项 $t=T$。
+我们要做的就是调整输入 $\pi$ ，让目标函数 $\mathcal{J}$ 最大化。那么，由易到难，先解 $\mathcal{J}$ 中的最后一项 $t=T$。此时，
+
+$$
+\begin{aligned} 
+\pi(\bullet|S\_{T} &= argmax\_{\pi(\bullet|s\_{T})})\mathbb{E}\_{a\_{T}\sim \pi(\bullet|s\_{T})}[r(s\_{T},a\_{T})+\alpha H(\pi(\bullet|s\_{T}))] \\ &= argmax\_{\pi} \int[r(s\_{T},a\_{T}) - \alpha log \pi(a\_{T}|s\_{T})]\pi(a\_{T}|s\_{T})da\_{T}
+\end{aligned} 
+$$
