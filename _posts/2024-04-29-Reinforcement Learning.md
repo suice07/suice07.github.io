@@ -330,6 +330,6 @@ $$ \pi\_{new} = \frac{exp(\frac{1}{\alpha}Q\^{\pi\_{old}}\_{soft}(s\_{t},a\_{t})
 1. 在策略评估时，根据(2.11)式，需要对动作求积分，然而这个操作在连续的动作空间中是不可能实现的。
 为了解决这个问题，实际的算法中采用了“采样+importance sampling”方法来近似 函数的期望值。在初期进行随机均匀采样，后期根据policy来采样。
 
-$$ V\^{\theta}\_{soft}(s) = \alpha log \mathbb{E}\_{q\_{a\^{'}}}[\frac{exp(\frac{1}{\alpha})Q\^{\theta}\_{soft}(s\_{t},a\^{'})}{q\_{a\^{'}}(a\^{'})}] $$
+$$ V\^{\theta}\_{soft}(s) = \alpha log \mathbb{E}\_{q\_{a\^{'}}}[\frac{exp(\frac{1}{\alpha}Q\^{\theta}\_{soft}(s\_{t},a\^{'}))}{q\_{a\^{'}}(a\^{'})}] $$
 
 q是用于采样的分布。
