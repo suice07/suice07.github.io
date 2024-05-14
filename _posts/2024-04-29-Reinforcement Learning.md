@@ -245,3 +245,10 @@ $$ Q\^{\pi}(s,a) = r(s,a) +\mathbb{E}\_{s\^{'}\sim p(s\_{'}|s,a),a\^{'}\sim \pi}
 $$ Q\^{\pi}(s,a) = r(s,a) +\gamma max\_{a\_{'}}(Q\^{\pi}(s\^{'},a\^{'})) $$
 
 这是由于Q-learning算法中，将策略评估与策略优化直接一步完成了，而SQL在值迭代时也做了同样的事，所以造成了(2.9)与 (2.11) 的差异。
+
+#### 解目标函数
+虽然 (2.3) 的解可以粗暴地用policy gradient(PG)算法来逼近，不过有更巧妙的办法来简化运算。同时在这个过程中，我们可以将 soft value function 和 energy based policy联系起来，并推出Soft Q learning[SQL](https://arxiv.org/abs/1702.08165) 的值迭代算法。 [参考](https://xlnwel.github.io/blog/reinforcement%20learning/SVI/)
+
+$$ \mathcal{J}(\pi) = \sum\^{T}\_{t=1} \gamma\^{t-1}E\_{s\_{t}\_{a\_{t}\sim \rho\_{\pi}}}[r(s\_{t},a\_{t})+\alpha\mathcal{H}(\pi(\bullet|s\_{t}))] \tag{2.12} $$
+
+我们要做的就是调整输入 $\pi$ ，让目标函数 $\mathcal{J}$ 最大化。那么，由易到难，先解 $\mathcal{J}$ 中的最后一项 $t=T$。
