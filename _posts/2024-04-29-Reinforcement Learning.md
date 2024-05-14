@@ -274,7 +274,7 @@ $$ V(s\_{T}) = \alpha log\int exp(\frac{1}{\alpha}Q(s\_{T},a))da $$
 
 $$
 \begin{aligned} 
-\pi(\bullet|S\_{T} &= argmax\_{\pi(\bullet|s\_{T})})\mathbb{E}\_{a\_{T}\sim \pi(\bullet|s\_{T})}[Q(s\_{T},a\_{T})+\alpha H(\pi(\bullet|s\_{T}))] \\ 
+\pi(a\_{T}|s\_{T}) = \frac{exp(\frac{1}{\alpha}Q(s\_{T},a\_{T}))}{\int exp \frac{1}{\alpha}Q(s\_{T},a)} da  \\ 
 &= argmax\_{\pi} \int[Q(s\_{T},a\_{T}) - \alpha log \pi(a\_{T}|s\_{T})]\pi(a\_{T}|s\_{T})da\_{T}
 \end{aligned} 
 $$
