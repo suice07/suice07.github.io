@@ -286,3 +286,9 @@ $$ \pi(\bullet|s\_{T}) = argmax\_{\pi(\bullet|s\_{t})}E\_{a\_{t}\sim \pi(\bullet
 求解可得：
 
 $$ \pi(a\_{t}|s\_{t}) = exp(\frac{1}{\alpha}(Q(s\_{t},a\_{t})-V(s\_{t}))) \tag{2.13} $$
+
+此时，
+
+$$ Q(s\_{t},a\_{t}) = r(s\_{t},a\_{t})+\gamma E\_{p(s\_{t+1}|s\_{t},a\_{t})}[V(s\_{t+1})] $$
+
+$$ V(s\_{t}) = \alpha log \int exp(\frac{1}{\alpha}Q(s\_{t},a))da $$
