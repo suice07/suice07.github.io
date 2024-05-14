@@ -294,3 +294,16 @@ $$ \pi(a\_{t}|s\_{t}) = exp(\frac{1}{\alpha}(Q(s\_{t},a\_{t})-V(s\_{t}))) \tag{2
 $$ Q(s\_{t},a\_{t}) = r(s\_{t},a\_{t})+\gamma E\_{p(s\_{t+1}|s\_{t},a\_{t})}[V(s\_{t+1})] $$
 
 $$ V(s\_{t}) = \alpha log \int exp(\frac{1}{\alpha}Q(s\_{t},a))da $$
+
+最终，一方面，我们得到了策略（policy）最优解的表达式 (2.13) ，同时可以发现，这个解与Energy Based Policy(EBP)的形式 (2.10) 高度契合，所以soft value function可以自然地与EBP关联到一起。
+
+另一方面，根据上面的求解过程，我们可以得出 soft Q learning 用的值迭代算法：\\
+Soft Value Iteration Algorithm
+
+$$ V(s\_{T}+1) = 0 $$
+
+$$ for t = T to 1: $$
+
+$$ Q(s\_{t},a\_{t}) = r(s\_{t},a\_{t})+\gamma E_{p(s\_{t+1|s\_{t},a\_{t}})}[V(s\_{t+1})]  \forall s\_{t},a\_{t} $$
+
+$$ V(s\_{t}) = \alpha log\int exp(\frac{1}{\alpha}Q(s\_{t},a\_{t}))da\_{t}   \forall s\_{t}$$
