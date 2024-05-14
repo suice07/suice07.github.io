@@ -259,3 +259,14 @@ $$
 &= argmax\_{\pi} \int[r(s\_{T},a\_{T}) - \alpha log \pi(a\_{T}|s\_{T})]\pi(a\_{T}|s\_{T})da\_{T}
 \end{aligned} 
 $$
+
+既然要最大化右式，那么让其对 $\pi(a\_{T}|s\_{T})$ 求导，令导数为零，可以求得解：
+
+$$ \pi(a\_{T}|s\_{T}) = \frac{exp(\frac{1}{\alpha}r(s\_{T},a\_{T}))}{\int exp \frac{1}{\alpha}r(s\_{T},a)} da $$
+
+[参考](https://blog.csdn.net/qq_25156657/article/details/85992203)，根据(2.4)(2.11), 此时：
+
+$$ Q(s\_{T},a\_{T}) = r(s\_{T},a\_{T}) $$
+$$ V(s\_{T} = \alpha log\int exp(\frac{1}{\alpha}Q(s\_{T},a)))da $$
+
+所以有：
