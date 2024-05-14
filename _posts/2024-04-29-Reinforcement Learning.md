@@ -314,3 +314,7 @@ $$ V(s\_{t}) = \alpha log\int exp(\frac{1}{\alpha}Q(s\_{t},a\_{t}))da\_{t}   \qu
 完成对当前策略的评估后，我们根据当前值函数更新优化策略，就像在Q-learning中:
 
 $$ \pi\_{new} = argmax\_{\pi}Q\^{\pi^{old}}(s\_{t},\pi(s\_{t})), \quad\forall s\_{t} $$
+
+不过在MERL中，我们可以发现策略的最优解形式(2.13)已经在上一步中推导了出来，并且可以直接用值函数表达出来。所以策略迭代优化的公式刚好就是：
+
+$$ \pi\_{new} = \frac{exp(\frac{1}{\alpha}Q\^{\pi\_{old}}\_{soft}(s\_{t},a\_{t}))}{exp\frac{1}{\alpha}V\_{soft}\^{\pi\_{old}(s\_{t})}} , \quad\forall s\_{t} \tag{2.14} $$
