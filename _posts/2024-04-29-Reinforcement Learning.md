@@ -191,6 +191,7 @@ Q\^{\pi}\_{soft}(s,a) &= \mathbb{E}\_{s\^{'}\sim p(s\^{'}|s,a), a\^{'}\sim \pi}[
 &= \mathbb{E}\_{s\^{'}\sim p(s\^{'}|s,a)}[r(s,a)+\gamma V\^{\pi}\_{soft}(s\^{'})]  
 \end{aligned} 
 $$
+
 上述式1.(2.6)和式2.(2.7)就是 $Q\_{soft}$ 的Bellman equation, 在进行策略评估(policy evaluation)时， MERL算法就用上述式1.和式2.进行值迭代(Value iteration)
 
 $$
