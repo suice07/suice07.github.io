@@ -267,6 +267,7 @@ $$ \pi(a\_{T}|s\_{T}) = \frac{exp(\frac{1}{\alpha}r(s\_{T},a\_{T}))}{\int exp \f
 [参考](https://blog.csdn.net/qq_25156657/article/details/85992203)，根据(2.4)(2.11), 此时：
 
 $$ Q(s\_{T},a\_{T}) = r(s\_{T},a\_{T}) $$
+
 $$ V(s\_{T} = \alpha log\int exp(\frac{1}{\alpha}Q(s\_{T},a)))da $$
 
 所以有：
