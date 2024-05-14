@@ -225,7 +225,7 @@ $$ \pi(a_{t}|s\_{t})\varpropto exp(\frac{1}{\alpha}Q\_{soft}(s\_{t},a\_{t})) \ta
 有了MERL框架中值函数与策略的基本定义后，我们就可以开始构建MERL框架下的算法。与标准的RL一样，MERL算法同样包括策略评估（Policy Evaluation），与策略优化（Policy Improvement），在这两个步骤交替运行下，值函数与策略都可以不断逼近最优。最终足够优秀的策略便可用于实际应用。
 ![policy_pic](../img/policy_iteration.png)
 
-#### Soft Policy Evaluation
+#### 2.4.1 Soft Policy Evaluation
 先要想办法给 soft value function $(V\_{soft},Q\_{soft})$ 填上正确的值，让它们可以逼近理论上的真实结果 (2.5), (2.4)，正确地预测策略能给 agent 带来的收益，这一步就被称为策略评估（policy evaluation）。然而，直接按照 (2.5), (2.4) 计算真值并不现实，所以就需要像Q-learning一样，通过不断地值迭代（value iteration），让 $Q$ 函数逼近最优 $Q\_{*}$ 。
 
 SAC中使用的值迭代公式就是(2.6)，(2.7) 和 (2.9)，不过它的前身 Soft Q-learning(SQL) 所使用的值迭代的公式却不一样，甚至采用了不同的值函数定义。只对SAC感兴趣的读者可以直接跳到后面的 SAC 部分。
@@ -309,3 +309,8 @@ $$ Q(s\_{t},a\_{t}) = r(s\_{t},a\_{t})+\gamma E_{p(s\_{t+1|s\_{t},a\_{t}})}[V(s\
 $$ V(s\_{t}) = \alpha log\int exp(\frac{1}{\alpha}Q(s\_{t},a\_{t}))da\_{t}   \quad\forall s\_{t} $$
 
 依照这个算法迭代至两个值函数收敛，就可以完成对策略的评估。
+
+#### 2.4.2 Soft Policy Improvement
+完成对当前策略的评估后，我们根据当前值函数更新优化策略，就像在Q-learning中:
+
+$$ \pi\_{new} = argmax\_{\pi}Q\^{\pi^{old}}(s\_{t},\pi(s\_{t})), \quad\forall s\_{t} $$
