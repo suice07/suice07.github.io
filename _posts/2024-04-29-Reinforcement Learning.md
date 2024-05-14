@@ -380,4 +380,4 @@ SAC的实际实现中，值函数与策略各由一个由参数控制的神经�
 
 根据(2.6)，可以得出函数训练时的损失函数：
 
-$$ J\_{Q}(\theta) = \mathbb{E}\_{(s\_{t},a\_{t},s\_{t+1})\sim \mathcal{D},a\_{t+1}\sim \pi\_{\phi}}[\frac{1}{2}(Q\_{\theta}(s\_{t},a\_{t})-(r(s\_{t},a\_{t})+\gamma(Q\_{\theta}(s\_{t+1},a\_{t+1})-\alpha log(\pi\_{\phi}(\pi\_{\phi}(a\_{t+1}|s\_{t+1}))))))^{2}] \tag{2.16} $$
+$$ J\_{Q}(\theta) = \mathbb{E}\_{(s\_{t},a\_{t},s\_{t+1})\sim \mathcal{D},a\_{t+1}\sim \pi\_{\phi}}[\frac{1}{2}(Q\_{\theta}(s\_{t},a\_{t})-(r(s\_{t},a\_{t})+\gamma(Q\_{\theta}(s\_{t+1},a\_{t+1})-\alpha log(\pi\_{\phi}(\pi\_{\phi}(a\_{t+1}|s\_{t+1})))))^{2}] \tag{2.16} $$
