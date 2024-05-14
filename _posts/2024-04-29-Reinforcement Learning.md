@@ -320,3 +320,16 @@ $$ \pi\_{new} = argmax\_{\pi}Q\^{\pi^{old}}(s\_{t},\pi(s\_{t})), \quad\forall s\
 $$ \pi\_{new} = \frac{exp(\frac{1}{\alpha}Q\^{\pi\_{old}}\_{soft}(s\_{t},a\_{t}))}{exp\frac{1}{\alpha}V\_{soft}\^{\pi\_{old}(s\_{t})}} , \quad\forall s\_{t} \tag{2.14} $$
 
 在[soft Q-learning](https://arxiv.org/abs/1702.08165)论文中有证明这样的更新策略可以提升策略的表现。
+
+#### 2.4.3 Soft Q-learning(SQL)
+已经有了策略评估和策略优化的具体操作过程，将这两步整合起来，就可以形成MERL算法。在soft Q-learning 算法中，我们先随机初始化策略和值函数，随后循环运行三个步骤：
+- 让智能体用当前的策略与环境交互采集数据。
+- 利用采集到的数据实现策略评估。
+- 利用评估完成的值函数完成策略优化
+最终就可以收敛到最优策略和最优值函数，这个算法的流程跟大多数RL算法没有区别，不过在具体实现时却会存在困难。
+1. 在策略评估时，根据(2.11)式，需要对动作求积分，然而这个操作在连续的动作空间中是不可能实现的。
+为了解决这个问题，实际的算法中采用了“采样+importance sampling”方法来近似 函数的期望值。在初期进行随机均匀采样，后期根据policy来采样。
+
+$$ V\^{\theta}\_{soft}(s) = \alpha log \mathbb{E}\_{q\_{a\^{'}}}[\frac{exp(\frac{1}{\alpha})Q\^{\theta}\_{soft}(s\_{t},a\^{'})}{q\_{a\^{'}}(a\^{'})}] $$
+
+q是用于采样的分布。
