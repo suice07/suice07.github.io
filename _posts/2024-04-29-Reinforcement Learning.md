@@ -318,3 +318,5 @@ $$ \pi\_{new} = argmax\_{\pi}Q\^{\pi^{old}}(s\_{t},\pi(s\_{t})), \quad\forall s\
 不过在MERL中，我们可以发现策略的最优解形式(2.13)已经在上一步中推导了出来，并且可以直接用值函数表达出来。所以策略迭代优化的公式刚好就是：
 
 $$ \pi\_{new} = \frac{exp(\frac{1}{\alpha}Q\^{\pi\_{old}}\_{soft}(s\_{t},a\_{t}))}{exp\frac{1}{\alpha}V\_{soft}\^{\pi\_{old}(s\_{t})}} , \quad\forall s\_{t} \tag{2.14} $$
+
+在[soft Q-learning](https://arxiv.org/abs/1702.08165)论文中有证明这样的更新策略可以提升策略的表现。
