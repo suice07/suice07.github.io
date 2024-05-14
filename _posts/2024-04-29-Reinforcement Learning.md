@@ -191,7 +191,7 @@ Q\^{\pi}\_{soft}(s,a) &= \mathbb{E}\_{s\^{'}\sim p(s\^{'}|s,a), a\^{'}\sim \pi}[
 &= \mathbb{E}\_{s\^{'}\sim p(s\^{'}|s,a)}[r(s,a)+\gamma V\^{\pi}\_{soft}(s\^{'})]  
 \end{aligned} 
 $$
-上述式1.和式2.就是 $Q\_{soft}$ 的Bellman equation, 在进行策略评估(policy evaluation)时， MERL算法就用上述式1.和式2.进行值迭代(Value iteration)
+上述式1.(2.6)和式2.(2.7)就是 $Q\_{soft}$ 的Bellman equation, 在进行策略评估(policy evaluation)时， MERL算法就用上述式1.和式2.进行值迭代(Value iteration)
 
 $$
 \begin{aligned} 
@@ -199,7 +199,7 @@ V\^{\pi}\_{soft}(s,a) &= \mathbb{E}\_{a\^{'}\sim \pi}[(Q\^{\pi}\_{soft}(s\^{'},a
 &= \mathbb{E}\_{a\sim \pi}[Q\^{\pi}\_{soft}(s,a) - \alpha log\pi(a|s)]  
 \end{aligned} 
 $$
-上述式2.就是SAC算法中 $V\_{soft}$ 函数的值迭代公式，不过一开始并没有用在soft Q-learning中，soft Q-learning中使用的 $V$ 函数定义会在soft Q-learning部分提及。
+上述式2.(2.9)就是SAC算法中 $V\_{soft}$ 函数的值迭代公式，不过一开始并没有用在soft Q-learning中，soft Q-learning中使用的 $V$ 函数定义会在soft Q-learning部分提及。(式1.为2.8)
 
 Energy Based Policy(EBP)
 MERL采用了独特的策略模型。为了适应更复杂的任务，MERL中的策略不再是以往的高斯分布形式，而是用基于能量的模型（energy-based model）来表示策略:
@@ -217,3 +217,31 @@ $$ \pi(a_{t}|s\_{t})\varpropto exp(\frac{1}{\alpha}Q\_{soft}(s\_{t},a\_{t})) \ta
 下图展示了一般的高斯分布策略（左）与基于能量的策略（右）的区别。可以看出基于能量的模型在面对多模态（multimodal）的值函数 $Q(s,a)$ 时，具有更强的策略表达能力，而一般的高斯分布只能将决策集中在 值更高的部分，忽略其他次优解。
 
 ![pgpic](../img/multimodal_q_func.png) [source](https://bair.berkeley.edu/blog/2017/10/06/soft-q-learning/)
+
+### 2.4 Soft Policy Evaluation and Soft Policy Improvement in Soft Q-learning
+
+有了MERL框架中值函数与策略的基本定义后，我们就可以开始构建MERL框架下的算法。与标准的RL一样，MERL算法同样包括策略评估（Policy Evaluation），与策略优化（Policy Improvement），在这两个步骤交替运行下，值函数与策略都可以不断逼近最优。最终足够优秀的策略便可用于实际应用。
+![policy_pic](../img/policy_iteration.png)
+
+#### Soft Policy Evaluation
+先要想办法给 soft value function $(V\_{soft},Q\_{soft})$ 填上正确的值，让它们可以逼近理论上的真实结果 (2.5), (2.4)，正确地预测策略能给 agent 带来的收益，这一步就被称为策略评估（policy evaluation）。然而，直接按照 (2.5), (2.4) 计算真值并不现实，所以就需要像Q-learning一样，通过不断地值迭代（value iteration），让 $Q$ 函数逼近最优 $Q\_{*}$ 。
+
+SAC中使用的值迭代公式就是(2.6)，(2.7) 和 (2.9)，不过它的前身 Soft Q-learning(SQL) 所使用的值迭代的公式却不一样，甚至采用了不同的值函数定义。只对SAC感兴趣的读者可以直接跳到后面的 SAC 部分。
+
+#### Soft V function in SQL(soft Q-learning)
+
+重新定义SQL中的V函数：
+
+$$ V\_{soft}(s) = \alpha log \int exp(\frac{1}{\alpha}Q\_{soft}(s,a))da \tag{2.11} $$
+
+soft 的由来：观察这个式子，其中 $log\int exp$ 这个操作就被称为“softmax”，这也是全文中“soft”的由来。与之相对应的就是 Q-learning 中使用的“hardmax”: $ V(s) = max\_{a}Q(s,a) $ ,(2.11)等价于： $ V(s) = \alpha softmax\_{a}\frac{1}{\alpha}Q(s,a) $ （注意： 越接近0，softmax 就越接近 hardmax）.
+
+对比 函数定义(2.11)与 (2.9)，发现同样是 $V$ 函数，SQL与SAC却大不相同，不过既然我们知道了softmax的含义，就可以猜测——当 (2.9) 取最大值，即策略最优时，两式其实在数值上相等。看懂SQL之后可以明白，因为SQL的策略可以直接由值函数表达，所以SQL可以直接将策略优化放进值迭代中。 (2.9) 与 (2.11) 的关系可以参考Q-learning，$Q$ 函数的标准定义是：
+
+$$ Q\^{\pi}(s,a) = r(s,a) +\mathbb{E}\_{s\^{'}\sim p(s\_{'}|s,a),a\^{'}\sim \pi}[\gamma(Q\^{\pi}(s\^{'},a\^{'}))] $$
+
+但实际的Q-learning的迭代算法中却是：
+
+$$ Q\^{\pi}(s,a) = r(s,a) +\gamma max\_{a\_{'}}(Q\^{\pi}(s\^{'},a\^{'})) $$
+
+这是由于Q-learning算法中，将策略评估与策略优化直接一步完成了，而SQL在值迭代时也做了同样的事，所以造成了(2.9)与 (2.11) 的差异。
