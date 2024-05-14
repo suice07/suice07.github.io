@@ -304,6 +304,6 @@ $$ V(s\_{T}+1) = 0 $$
 
 $$ for t = T to 1: $$
 
-$$ Q(s\_{t},a\_{t}) = r(s\_{t},a\_{t})+\gamma E_{p(s\_{t+1|s\_{t},a\_{t}})}[V(s\_{t+1})]  \forall s\_{t},a\_{t} $$
+$$ Q(s\_{t},a\_{t}) = r(s\_{t},a\_{t})+\gamma E_{p(s\_{t+1|s\_{t},a\_{t}})}[V(s\_{t+1})]  \quad\forall s\_{t},a\_{t} $$
 
-$$ V(s\_{t}) = \alpha log\int exp(\frac{1}{\alpha}Q(s\_{t},a\_{t}))da\_{t}   \forall s\_{t}$$
+$$ V(s\_{t}) = \alpha log\int exp(\frac{1}{\alpha}Q(s\_{t},a\_{t}))da\_{t}   \quad\forall s\_{t}$$
