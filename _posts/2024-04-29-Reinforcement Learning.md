@@ -200,6 +200,7 @@ V\^{\pi}\_{soft}(s,a) &= \mathbb{E}\_{a\^{'}\sim \pi}[(Q\^{\pi}\_{soft}(s\^{'},a
 &= \mathbb{E}\_{a\sim \pi}[Q\^{\pi}\_{soft}(s,a) - \alpha log\pi(a|s)]  
 \end{aligned} 
 $$
+
 上述式2.(2.9)就是SAC算法中 $V\_{soft}$ 函数的值迭代公式，不过一开始并没有用在soft Q-learning中，soft Q-learning中使用的 $V$ 函数定义会在soft Q-learning部分提及。(式1.为2.8)
 
 Energy Based Policy(EBP)
