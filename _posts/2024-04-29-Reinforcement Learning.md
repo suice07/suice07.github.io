@@ -255,6 +255,7 @@ $$ \mathcal{J}(\pi) = \sum\^{T}\_{t=1} \gamma\^{t-1}E\_{s\_{t}，a\_{t}\sim \rho
 
 $$
 \begin{aligned} 
-\pi(\bullet|S\_{T} &= argmax\_{\pi(\bullet|s\_{T})})\mathbb{E}\_{a\_{T}\sim \pi(\bullet|s\_{T})}[r(s\_{T},a\_{T})+\alpha H(\pi(\bullet|s\_{T}))] \\ &= argmax\_{\pi} \int[r(s\_{T},a\_{T}) - \alpha log \pi(a\_{T}|s\_{T})]\pi(a\_{T}|s\_{T})da\_{T}
+\pi(\bullet|S\_{T} &= argmax\_{\pi(\bullet|s\_{T})})\mathbb{E}\_{a\_{T}\sim \pi(\bullet|s\_{T})}[r(s\_{T},a\_{T})+\alpha H(\pi(\bullet|s\_{T}))] \\ 
+&= argmax\_{\pi} \int[r(s\_{T},a\_{T}) - \alpha log \pi(a\_{T}|s\_{T})]\pi(a\_{T}|s\_{T})da\_{T}
 \end{aligned} 
 $$
