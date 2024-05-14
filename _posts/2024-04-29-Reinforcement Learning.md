@@ -278,3 +278,7 @@ $$
 &= exp(\frac{1}{\alpha}(Q(s\_{T},a\_{T})-V(s\_{T})))
 \end{aligned} 
 $$
+
+下面进一步推广到通常情况。
+
+$$ \pi(\bullet|s\_{T}) = argmax\_{\pi(\bullet|s\_{t})}E\_{a\_{t}\sim \pi(\bullet|s\_{t})}[r(s\_{t},a\_{t})+\alpha \mathcal{H}(\pi(\bullet|s\_{t}))+\gamma E\_{p(s\_{t}+1|s\_{t},a\_{t})}[V(s\_{t}+1)]] $$
