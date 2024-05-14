@@ -389,4 +389,11 @@ $$
 J\_{\pi}(\phi) &= D\_{KL}(\pi\_{\phi}(\bullet|s\_{t})\|exp(\frac{1}{\alpha}Q\_{\theta}(s\_{t},\bullet)-logZ(s\_{t}))) \\
 &= \mathbb{E}\_{s\_{t}\sim\mathcal{D},a\_{t}\sim\pi\_{\phi}}[log(\frac{\pi\_{\phi}(a\_{t}|s\_{t})}{exp(\frac{1}{\alpha}Q\_{\theta}(s\_{t},a\_{t})-logZ(s\_{t}))})] \\  
 \end{aligned} 
+&= \mathbb{E}\_{s\_{t}\sim\mathcal{D},a\_{t}\sim\pi\_{\phi}}[log\pi\_{phi}(a\_{t}|s\_{t})-\frac{1}{\alpha}Q\_{\theta}(s\_{t},a\_{t})+logZ(s\_{t})]
 $$
+
+这里使用了[reparameterization](https://stats.stackexchange.com/questions/199605/how-does-the-reparameterization-trick-for-vaes-work-and-why-is-it-important)， 是从replay buffer中取出来的，而 是从当前的策略 中采样得来, 由 $a\_{t}\sim\pi\_{\phi}$ ,引入reparameterization技术，有：
+
+$$ a\_{t} = f\_{\phi}(\varepsilon\_{t};s\_{t}) = f\^{\mu}\_{\phi}(s\_{t})+\varepsilon\_{t}\bigodot f\^{sigma}\_{\phi}(s\_{t}) $$
+
+同时，由于在对策略的参数求导时, $Z$ 不受策略参数 $\phi$ 影响，所以直接将其忽略。
