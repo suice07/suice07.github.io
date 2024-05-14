@@ -306,4 +306,6 @@ $$ for t = T to 1: $$
 
 $$ Q(s\_{t},a\_{t}) = r(s\_{t},a\_{t})+\gamma E_{p(s\_{t+1|s\_{t},a\_{t}})}[V(s\_{t+1})]  \quad\forall s\_{t},a\_{t} $$
 
-$$ V(s\_{t}) = \alpha log\int exp(\frac{1}{\alpha}Q(s\_{t},a\_{t}))da\_{t}   \quad\forall s\_{t}$$
+$$ V(s\_{t}) = \alpha log\int exp(\frac{1}{\alpha}Q(s\_{t},a\_{t}))da\_{t}   \quad\forall s\_{t} $$
+
+依照这个算法迭代至两个值函数收敛，就可以完成对策略的评估。
