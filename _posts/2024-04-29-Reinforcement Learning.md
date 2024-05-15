@@ -404,3 +404,10 @@ $$ J\_{\pi}(\phi) = \mathbb{E}\_{s\_{t}\sim\mathcal{D},\varepsilon\sim\mathcal{N
 最后，只需要不断收集数据，缩小这两个损失函数，就可以得到收敛到一个解。在初版的SAC中，作者表示同时维持两个值函数，可以使训练更加稳定，不过在第二版中，作者引入了自动调整温度系数 $\alpha$ 的方法，使得SAC更加稳定，于是就只保留了 $Q$ 函数。
 
 ### 2.6 Tricks in SAC
+
+SAC中借用了许多提升性能的技巧，包括[double Q network](https://proceedings.neurips.cc/paper_files/paper/2010/hash/091d584fced301b442654dd8c23b3fc9-Abstract.html), [target network](https://datascience.stackexchange.com/questions/32246/q-learning-target-network-vs-double-dqn).不过上面两个都是锦上添花。下面介绍一个SAC的重要改进。
+
+#### 2.6.1 Automating Entropy Adjustment for MERL
+前文提到过，温度系数 $\alpha$ 作为一个超参数，可以控制MERL对熵的重视程度。但是不同的强化学习任务，甚至同一任务训练到不同时期，都各自有自己适合的 $\alpha$ ，而且这个超参数对性能的影响明显。还好，这个参数可以让SAC自己调节。作者将其构造为一个带约束的优化问题：最大化期望收益的同时，保持策略的熵大于一个阈值。
+
+$$ max\_{\pi\_{0},..,\pi\_{T}}\mathbb{E}[\sum\^{T}\_{t=0}r(s\_{t},a\_{t})] \quad\text{s.t.}\forall t,\mathcal{H}(\pi\_{t})\geqslant\mathcal{H}\_{0} \tag{2.18} $$
