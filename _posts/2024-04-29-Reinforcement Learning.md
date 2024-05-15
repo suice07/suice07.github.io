@@ -388,7 +388,7 @@ $$
 \begin{aligned} 
 J\_{\pi}(\phi) &= D\_{KL}(\pi\_{\phi}(\bullet|s\_{t})\|exp(\frac{1}{\alpha}Q\_{\theta}(s\_{t},\bullet)-logZ(s\_{t}))) \\
 &= \mathbb{E}\_{s\_{t}\sim\mathcal{D},a\_{t}\sim\pi\_{\phi}}[log(\frac{\pi\_{\phi}(a\_{t}|s\_{t})}{exp(\frac{1}{\alpha}Q\_{\theta}(s\_{t},a\_{t})-logZ(s\_{t}))})] \\  
-&= \mathbb{E}\_{s\_{t}\sim\mathcal{D},a\_{t}\sim\pi\_{\phi}}[log\pi\_{phi}(a\_{t}|s\_{t})-\frac{1}{\alpha}Q\_{\theta}(s\_{t},a\_{t})+logZ(s\_{t})] \\
+&= \mathbb{E}\_{s\_{t}\sim\mathcal{D},a\_{t}\sim\pi\_{\phi}}[log\pi\_{\phi}(a\_{t}|s\_{t})-\frac{1}{\alpha}Q\_{\theta}(s\_{t},a\_{t})+logZ(s\_{t})] \\
 \end{aligned} 
 $$
 
