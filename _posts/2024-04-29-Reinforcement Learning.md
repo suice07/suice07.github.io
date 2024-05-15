@@ -399,4 +399,4 @@ $$ a\_{t} = f\_{\phi}(\varepsilon\_{t};s\_{t}) = f\^{\mu}\_{\phi}(s\_{t})+\varep
 
 同时，由于在对策略的参数求导时, $Z$ 不受策略参数 $\phi$ 影响，所以直接将其忽略。最终得到：
 
-$$ J\_{\pi}(\phi) = \mathbb{E}\_{s\_{t}\sim}\mathcal{D},\varepsilon\sim\mathcal{N}[\alpha log\pi\_{\phi}(f\_{\phi}(\varepsilon\_{t};s\_{t})|s\_{t}) - Q\theta(s\_{t},f\_{\phi}(\varepsilon\_{t};s\_{t}))]  \tag{2.17} $$
+$$ J\_{\pi}(\phi) = \mathbb{E}\_{s\_{t}\sim\mathcal{D},\varepsilon\sim\mathcal{N}}[\alpha log\pi\_{\phi}(f\_{\phi}(\varepsilon\_{t};s\_{t})|s\_{t}) - Q\theta(s\_{t},f\_{\phi}(\varepsilon\_{t};s\_{t}))]  \tag{2.17} $$
