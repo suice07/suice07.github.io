@@ -415,4 +415,4 @@ $$ max\_{\pi\_{0},..,\pi\_{T}}\mathbb{E}[\sum\^{T}\_{t=0}r(s\_{t},a\_{t})] \quad
 $\mathcal{H}\_{0}$ 是预先定义好的最小策略熵的阈值。
 根据(2.18), 最终得到需要优化的损失函数([ref](https://lilianweng.github.io/posts/2018-04-08-policy-gradient/)):
 
-$$ J(\alpha) = \mathbb{E}\_{a\_{t}\sim\pi\_{t}} $$
+$$ J(\alpha) = \mathbb{E}\_{a\_{t}\sim\pi\_{t}}[-\alpha log\pi\_{t}(a\_{t}|\pi\_{t})-\alpha\mathcal{H}\_{0}]  \tag{2.19}$$
