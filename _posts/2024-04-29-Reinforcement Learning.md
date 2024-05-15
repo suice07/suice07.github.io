@@ -400,3 +400,5 @@ $$ a\_{t} = f\_{\phi}(\varepsilon\_{t};s\_{t}) = f\^{\mu}\_{\phi}(s\_{t})+\varep
 同时，由于在对策略的参数求导时, $Z$ 不受策略参数 $\phi$ 影响，所以直接将其忽略。最终得到：
 
 $$ J\_{\pi}(\phi) = \mathbb{E}\_{s\_{t}\sim\mathcal{D},\varepsilon\sim\mathcal{N}}[\alpha log\pi\_{\phi}(f\_{\phi}(\varepsilon\_{t};s\_{t})|s\_{t}) - Q\_{\theta}(s\_{t},f\_{\phi}(\varepsilon\_{t};s\_{t}))]  \tag{2.17} $$
+
+最后，只需要不断收集数据，缩小这两个损失函数，就可以得到收敛到一个解。在初版的SAC中，作者表示同时维持两个值函数，可以使训练更加稳定，不过在第二版中，作者引入了自动调整温度系数 $\alpha$ 的方法，使得SAC更加稳定，于是就只保留了 $Q$ 函数。
