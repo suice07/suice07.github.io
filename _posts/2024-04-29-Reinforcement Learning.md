@@ -411,3 +411,8 @@ SAC中借用了许多提升性能的技巧，包括[double Q network](https://pr
 前文提到过，温度系数 $\alpha$ 作为一个超参数，可以控制MERL对熵的重视程度。但是不同的强化学习任务，甚至同一任务训练到不同时期，都各自有自己适合的 $\alpha$ ，而且这个超参数对性能的影响明显。还好，这个参数可以让SAC自己调节。作者将其构造为一个带约束的优化问题：最大化期望收益的同时，保持策略的熵大于一个阈值。
 
 $$ max\_{\pi\_{0},..,\pi\_{T}}\mathbb{E}[\sum\^{T}\_{t=0}r(s\_{t},a\_{t})] \quad\text{s.t.}\forall t,\mathcal{H}(\pi\_{t})\geqslant\mathcal{H}\_{0} \tag{2.18} $$
+
+$\mathcal{H}\_{0}$ 是预先定义好的最小策略熵的阈值。
+根据(2.18), 最终得到需要优化的损失函数([ref](https://lilianweng.github.io/posts/2018-04-08-policy-gradient/)):
+
+$$ J(\alpha) = \mathbb{E}\_{a\_{t}\sim\pi\_{t}} $$
