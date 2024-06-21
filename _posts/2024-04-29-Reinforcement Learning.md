@@ -416,7 +416,3 @@ $\mathcal{H}\_{0}$ 是预先定义好的最小策略熵的阈值。
 根据(2.18), 最终得到需要优化的损失函数([ref](https://lilianweng.github.io/posts/2018-04-08-policy-gradient/)):
 
 $$ J(\alpha) = \mathbb{E}\_{a\_{t}\sim\pi\_{t}}[-\alpha log\pi\_{t}(a\_{t}|\pi\_{t})-\alpha\mathcal{H}\_{0}]  \tag{2.19}$$
-
-temp added:
-
-$$ NLL(\theta) = - \sum\_{i \in D}\sum\_{t = 1}\^{|y\_{i}|} logP(y\_{i,t}|y\_{i,t-1,x\_{i}};\theta) $$
