@@ -184,3 +184,143 @@ def aggregate_outputs(outputs):
 
 ### 4. **总结**
 通过重叠分块、上下文融合和全局状态的维护，Flash Attention 能够有效地处理上下文问题。这些策略确保了模型在处理长序列时，能够保留必要的上下文信息，从而生成连贯且一致的输出。
+
+理解 Flash Attention 和传统 Attention 之间的计算差异，我们可以更详细地分析它们在实现上的具体细节，特别是在计算效率和内存管理方面。下面是更深入的代码示例，以突出它们之间的区别。
+
+### 1. **传统 Transformer 中的 Attention**
+
+在传统的自注意力实现中，计算步骤包括生成注意力权重矩阵，并对其进行 softmax 操作。以下是更详细的实现，包含内存使用的示例：
+
+```python
+import torch
+import torch.nn.functional as F
+
+def traditional_attention(Q, K, V):
+    # Q: (batch_size, seq_len, d_k)
+    # K: (batch_size, seq_len, d_k)
+    # V: (batch_size, seq_len, d_v)
+    
+    # 计算注意力分数
+    scores = torch.matmul(Q, K.transpose(-2, -1)) / (K.size(-1) ** 0.5)  # (batch_size, seq_len, seq_len)
+    
+    # 应用 softmax，生成注意力权重
+    attention_weights = F.softmax(scores, dim=-1)  # (batch_size, seq_len, seq_len)
+    
+    # 计算输出
+    output = torch.matmul(attention_weights, V)  # (batch_size, seq_len, d_v)
+    
+    return output
+```
+
+### 2. **Flash Attention 的实现**
+
+Flash Attention 则通过优化计算顺序和内存使用来提高性能。下面是一个更接近实际实现的示例，强调了如何在计算上进行优化。
+
+#### 2.1 计算优化
+
+Flash Attention 的实现通常会采用 CUDA 加速，并通过更高效的内存访问模式来优化计算。以下是一个伪代码示例：
+
+```python
+import torch
+import flash_attn_cuda  # 假设存在一个高效的 CUDA 库
+
+def flash_attention(Q, K, V):
+    # batch_size, seq_len, d_k
+    # 使用 CUDA 高效的实现
+    output = flash_attn_cuda.forward(Q, K, V)  # 高效的注意力计算
+    return output
+```
+
+### 3. **计算和内存使用的差异**
+
+#### 3.1 传统 Attention 的计算
+- 计算复杂度为 \(O(n^2 d)\)，每个输入序列的注意力分数都需要计算并存储在一个 \(n \times n\) 的矩阵中。
+- 在需要处理长序列时，内存和计算开销会快速增加。
+
+#### 3.2 Flash Attention 的优化
+- **分块处理**：Flash Attention 可以在计算时只处理当前块的数据，避免全量计算。例如，假设将输入分成多个小块，只计算块内的注意力分数：
+    ```python
+    for block in range(num_blocks):
+        Q_block, K_block, V_block = get_block(Q, K, V, block)
+        output_block = flash_attn_cuda.forward(Q_block, K_block, V_block)
+        # 合并块结果
+    ```
+
+- **内存重用**：Flash Attention 通常会重用内存，减少内存分配和释放的次数，从而降低内存碎片。
+- **动态计算**：Flash Attention 通过动态选择计算的部分，进一步减少不必要的计算。
+
+### 4. **总结**
+
+- **效率**：Flash Attention 通过分块处理和动态计算，显著减少了计算复杂度和内存使用，尤其是在处理长序列时。
+- **实现复杂性**：Flash Attention 的实现可能更复杂，依赖于专用的 CUDA 库，但在性能上提供了显著提升。
+
+这些代码示例和解释更清晰地展示了 Flash Attention 和传统 Attention 在内存使用和计算效率上的差异。
+要直接实现 Flash Attention 而不依赖于 `flash_attn` 库，我们可以通过优化传统的自注意力机制来减少内存使用和提高计算效率。下面是一个简化的 Flash Attention 的实现步骤，体现了如何利用矩阵操作和内存管理来优化计算。
+
+### 1. **概念回顾**
+
+Flash Attention 的核心思想是：
+- **分块处理**：将长序列分成小块处理，以减少内存占用。
+- **避免全量矩阵**：只计算必要的注意力分数，避免不必要的计算。
+
+### 2. **Flash Attention 的简单实现**
+
+以下是一个基于 PyTorch 的 Flash Attention 的简化实现示例：
+
+```python
+import torch
+import torch.nn.functional as F
+
+def flash_attention(Q, K, V, block_size=128):
+    """
+    Q: Query tensor of shape (batch_size, seq_len, d_k)
+    K: Key tensor of shape (batch_size, seq_len, d_k)
+    V: Value tensor of shape (batch_size, seq_len, d_v)
+    block_size: Size of the block to process at a time
+    """
+    batch_size, seq_len, d_k = Q.size()
+    
+    # Output tensor
+    output = torch.zeros(batch_size, seq_len, V.size(-1), device=Q.device)
+
+    # Process in blocks
+    for i in range(0, seq_len, block_size):
+        j_end = min(i + block_size, seq_len)  # End index for the block
+        Q_block = Q[:, i:j_end, :]  # (batch_size, block_size, d_k)
+        
+        # Compute attention scores for the block
+        scores = torch.matmul(Q_block, K.transpose(-2, -1)) / (d_k ** 0.5)  # (batch_size, block_size, seq_len)
+        attention_weights = F.softmax(scores, dim=-1)  # (batch_size, block_size, seq_len)
+
+        # Compute output for the block
+        output[:, i:j_end, :] = torch.matmul(attention_weights, V)  # (batch_size, block_size, d_v)
+
+    return output
+
+# Example usage
+batch_size = 2
+seq_len = 512  # Length of input sequence
+d_k = 64  # Dimension of key/query
+d_v = 64  # Dimension of value
+
+Q = torch.rand(batch_size, seq_len, d_k).cuda()
+K = torch.rand(batch_size, seq_len, d_k).cuda()
+V = torch.rand(batch_size, seq_len, d_v).cuda()
+
+output = flash_attention(Q, K, V, block_size=128)
+print(output.shape)  # Should be (batch_size, seq_len, d_v)
+```
+
+### 3. **实现细节**
+
+#### 3.1 分块处理
+- **分块处理**：在循环中，每次处理一个 `block_size` 的块，而不是一次处理整个序列。这减少了每次计算所需的内存。
+
+#### 3.2 动态计算
+- **注意力计算**：只计算当前块的注意力分数，避免了全量计算，降低了不必要的计算开销。
+
+#### 3.3 内存管理
+- **输出预分配**：预先分配输出张量以减少内存分配的次数，提高效率。
+
+### 4. **总结**
+通过这种方式，我们可以实现一个简化的 Flash Attention，直接在代码中优化了内存使用和计算效率。虽然这个实现是简化版，但它反映了 Flash Attention 的核心思想。对于更复杂的实现，可以考虑更多的优化技术，如更高效的内存访问模式和并行计算。
