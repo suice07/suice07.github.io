@@ -133,3 +133,54 @@ def flash_attention_cuda(Q, K, V):
 - **实现复杂性**：Flash Attention 的实现可能更复杂，需要依赖特定的库和工具，但能在性能上获得显著提升。
 
 这些代码示例和描述展示了传统 Attention 和 Flash Attention 在实现上的不同，同时也突出了它们在内存和计算效率上的差异。
+
+Flash Attention 在分块处理长序列时，确实面临上下文处理的问题。为了有效地处理上下文信息，Flash Attention 采用了一些策略。以下是对这些策略的详细说明：
+
+### 1. **分块处理的基本概念**
+- **分块处理**：将长序列划分为较小的块（例如，长度为 \( m \) 的子序列），每个块单独进行自注意力计算。
+- **上下文窗口**：在处理每个块时，只考虑块内部的上下文，而不是整个序列。
+
+### 2. **上下文信息的处理**
+
+#### 2.1 **重叠分块**
+- **重叠区域**：在分块时，可以设计重叠的块，例如每个块的后半部分与下一个块的前半部分重叠。这有助于保留上下文信息。
+- **示例**：假设序列长度为 10，块大小为 4，可以设置块如下：
+  - Block 1: Positions [0, 1, 2, 3]
+  - Block 2: Positions [2, 3, 4, 5]
+  - Block 3: Positions [4, 5, 6, 7]
+  
+  在这种情况下，位置 2 和 3 被两个块共享，能够保留上下文信息。
+
+#### 2.2 **上下文融合**
+- **上下文聚合**：在计算每个块的输出后，可以通过某种聚合策略，将相邻块的输出进行融合。这可以是简单的平均、加权和，或者更复杂的融合方法。
+- **动态调整**：根据需要调整块之间的上下文融合策略，确保生成的结果具有一致性和连贯性。
+
+#### 2.3 **全局上下文存储**
+- **全局状态**：在处理序列的过程中，可以维护一个全局的上下文状态或上下文向量，用于存储和传递跨块的信息。
+- **注意力层叠**：在后续的层中，使用这个全局上下文来帮助结合不同块的输出，增强模型的整体理解能力。
+
+### 3. **示例代码（伪代码）**
+以下是一个示例，展示如何实现重叠分块和上下文融合的策略：
+
+```python
+def process_with_flash_attention(sequence, block_size, overlap):
+    outputs = []
+    for start in range(0, len(sequence), block_size - overlap):
+        end = min(start + block_size, len(sequence))
+        block = sequence[start:end]
+        
+        # 计算当前块的注意力
+        output = flash_attention(block)
+        outputs.append(output)
+
+    # 上下文融合
+    final_output = aggregate_outputs(outputs)
+    return final_output
+
+def aggregate_outputs(outputs):
+    # 这里可以实现简单的平均或更复杂的融合方法
+    return torch.mean(torch.stack(outputs), dim=0)
+```
+
+### 4. **总结**
+通过重叠分块、上下文融合和全局状态的维护，Flash Attention 能够有效地处理上下文问题。这些策略确保了模型在处理长序列时，能够保留必要的上下文信息，从而生成连贯且一致的输出。
