@@ -84,6 +84,29 @@ def traditional_attention(Q, K, V):
     output = torch.matmul(attention_weights, V)  # Weighted sum of values
     return output
 ```
+Attention 和 Self-Attention 是深度学习中常用的机制，尤其在自然语言处理和计算机视觉任务中。它们的主要区别如下：
+
+- **Attention**：通常指的是一种机制，通过计算输入序列中不同部分之间的相关性，以加权方式聚合信息。它可以用于多种任务，包括编码器-解码器架构中的信息传递。
+  
+- **Self-Attention**：是一种特殊的 Attention 机制，其中输入序列的每个元素都与自身以及其他元素进行比较。它用于捕捉序列内部的关系，通常用于处理同一输入序列中的信息。
+
+- **Attention**：
+  - 输入可以是来自不同来源（例如，编码器的输出与解码器的输入）。
+  - 输出通常是加权的上下文向量，结合了不同输入的相关信息。
+
+- **Self-Attention**：
+  - 输入和输出都是同一序列。
+  - 每个元素通过与其他元素的交互生成一个新的表示，反映了整个序列的上下文信息。
+
+- **Attention**：广泛用于序列到序列任务，如机器翻译、文本摘要等。
+  
+- **Self-Attention**：在 Transformer 模型中被广泛使用，特别是在 NLP 任务中，如文本分类、问答和生成任务。
+
+- **Attention**：在处理长序列时，可能会涉及到不同来源的输入，计算复杂度较高。
+  
+- **Self-Attention**：虽然计算复杂度也是 O(n²)，但它可以在同一序列上进行并行计算，因此在训练过程中效率较高。
+
+- **Attention** 是一个更广泛的概念，而 **Self-Attention** 是其特定形式，专注于单一输入序列内部的关系。Self-Attention 使得模型能够有效捕捉长距离依赖关系，是现代 NLP 模型（如 Transformer）的核心组件。
 
 ### 2. **Flash Attention 的实现**
 
