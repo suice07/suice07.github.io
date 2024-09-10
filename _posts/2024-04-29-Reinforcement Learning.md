@@ -35,19 +35,19 @@ $$ \mu_{\theta}(s): S \rightarrow A $$
 
 策略函数由参数 $\theta$ 确定，将状态空间的一个点映射到动作空间的一个点，这也就是决策过程。算法公式：定义了DPG需要的两个主要成分后，利用critic直接优化actor的思想，就有了DPG的核心公式：
 
-$$ \max_{\theta} \mathbb{E}_{s \sim \text{Data}}[Q\^{\mu}\_{\omega}(s,\mu\_{\theta}(s))] \tag{1.1} $$
+$$ \max_{\theta} \mathbb{E}_{s \sim \text{Data}}[Q\^{\mu}\_{\omega}(s,\mu\_{\theta}(s))] \quad \text{1.1} $$
 
 此时, $Q$ 函数参数固定，只调整策略函数 $\mu$ ; $Q$ 函数另外单独训练，训练方式同 Q-learning(须额外描述)。
 
 寻找最优决策：DPG的最终目的还是在于调整策略，所以先假设已有最优的critic: $Q^{\*}$ ,在 $t$ 时刻遇到某个状态 $s_{t}$ ,要求此刻最优动作 $a_{t}^{\*}$ , 我们需要做的就是固定住 $Q^{\*}$ 函数输入端 $(s,a)$ 当中的状态 $s$ 为 $s_{t}$ ,不断调整输入动作 $a$ ，直到 $Q^{\*}$ 的输出值最大，此时的动作 $a$ 即为最优决策 $a_{t}^{\*}$, 这个操作等价于一般的Q-learning中的greedy决策方式：
 
-$$ a_{t}^{\*} = \text{argmax}_{a} Q^{\*} (s\_{t},a)  \tag{1.2} $$ 
+$$ a_{t}^{\*} = \text{argmax}_{a} Q^{\*} (s\_{t},a)  \quad \text{1.2} $$ 
 
 假如我们面临一个需要做决策的情况，而我们知道所有决策的后果（$Q$函数会告诉我们），那么最优决策就是那个可以带来最佳后果的决策。不过不同于Q-learning，在DPG的目标任务中，动作空间是连续的，所以可以直接让 $Q^{\*}$ 函数对输入动作 $a$ 求导，这就成了一个将指定的连续可导函数最大化的问题。
 
 优化当前策略：在动作空间中找到针对状态 $s_{t}$ 最优动作 $a_{t}^{\*}$ 后，我们就可以根据这个最优动作调整策略，即优化actor: $\mu(s)$ 。让actor模仿这一决策即可（可以把这一步视为监督学习，最优动作就是其标签，优化过程就是让actor在接受 $s_{t}$ 时的输出向标签靠拢）：
 
-$$ min\_{\theta}[\text{difference of}(\mu\_{\theta}(s\_{t}, a\^{\*}\_{t}))] \tag{1.3} $$
+$$ min\_{\theta}[\text{difference of}(\mu\_{\theta}(s\_{t}, a\^{\*}\_{t}))] \quad \text{1.3} $$
 
 不过这次策略调整只改变了智能体（agent）在 $s_{t}$ 这单个状态下的决策，接下来还需要将整个状态空间 $S$ 中所有的状态的策略调整到最优，就可以得到最优策略 $\mu^{\*}$ .
 
@@ -150,11 +150,11 @@ SAC中的熵（entropy）可以理解为混乱度，无序度，随机程度，�
 
 **熵的计算**：熵是用于衡量随机变量的随机性，实际计算时直接考虑其服从的随机分布。现在要计算变量 $x$ 的熵值 ，而 $x$ 服从分布 $P$ ，则 $x$ 的熵 $H(P)$ 为: $H(P) = E\_{x\sim P}[-logP(x)]$ ，标准的RL算法目标，是找到能收集最多累计收益的策略，表达式为：
 
-$$ \pi\^{*}\_{std} = argmax\_{\pi} \sum\_{t}\mathbb{E}\_{(s\_{t},a\_{t})\sim \rho\_{\pi}}[r(s\_{t}, a\_{t})]  \tag{2.2} $$
+$$ \pi\^{*}\_{std} = argmax\_{\pi} \sum\_{t}\mathbb{E}\_{(s\_{t},a\_{t})\sim \rho\_{\pi}}[r(s\_{t}, a\_{t})]  \quad \text{2.2} $$
 
 而引入了熵最大化的RL算法的目标策略：
 
-$$ \pi\^{*}\_{MaxEnt} = argmax\_{\pi} \sum\_{t}\mathbb{E}\_{(s\_{t},a\_{t})\sim \rho\_{\pi}}[r(s\_{t}, a\_{t}) + \alpha H(\pi(\bullet|s\_{t}))]  \tag{2.3} $$
+$$ \pi\^{*}\_{MaxEnt} = argmax\_{\pi} \sum\_{t}\mathbb{E}\_{(s\_{t},a\_{t})\sim \rho\_{\pi}}[r(s\_{t}, a\_{t}) + \alpha H(\pi(\bullet|s\_{t}))]  \quad \text{2.3} $$
 
 $\rho$ 表示在策略 $\pi$ 控制下，智能体(agent)会遇到的状态动作对(state-action pair)所服从的分布。$\alpha$ 为超参数(温度系数)，用于调整对熵值的重视程度。 
 
@@ -181,7 +181,7 @@ $$ Q\^{\pi}\_{soft}(s,a) = \mathbb{E}[\sum\^{\infty}\_{t=0}\gamma\^{t}r(s\_{t},a
 
 soft V function:
 
-$$ V\^{\pi}\_{soft}(s) = \mathbb{E}\_{s\_{t},a\_{t}\sim \rho\_{\pi}}[\sum\^{\infty}\_{t=0}\gamma\^{t}(r(s\_{t},a\_{t})+\alpha H(\pi(\bullet|s\_{t})))|s\_{0}= s]  \tag{2.5} $$
+$$ V\^{\pi}\_{soft}(s) = \mathbb{E}\_{s\_{t},a\_{t}\sim \rho\_{\pi}}[\sum\^{\infty}\_{t=0}\gamma\^{t}(r(s\_{t},a\_{t})+\alpha H(\pi(\bullet|s\_{t})))|s\_{0}= s]  \quad \text{2.5} $$
 
 观察公式(2.4)(2.5)可知， soft Q 与 soft V 存在联系:
 
@@ -214,7 +214,7 @@ $$ \varepsilon(s\_{t},a\_{t}) = - \frac{1}{\alpha}Q\_{soft}(s\_{t},a\_{t}) $$
 
 所以：
 
-$$ \pi(a_{t}|s\_{t})\varpropto exp(\frac{1}{\alpha}Q\_{soft}(s\_{t},a\_{t})) \tag{2.10} $$
+$$ \pi(a_{t}|s\_{t})\varpropto exp(\frac{1}{\alpha}Q\_{soft}(s\_{t},a\_{t})) \quad \text{2.10} $$
 
 下图展示了一般的高斯分布策略（左）与基于能量的策略（右）的区别。可以看出基于能量的模型在面对多模态（multimodal）的值函数 $Q(s,a)$ 时，具有更强的策略表达能力，而一般的高斯分布只能将决策集中在 值更高的部分，忽略其他次优解。
 
@@ -234,7 +234,7 @@ SAC中使用的值迭代公式就是(2.6)，(2.7) 和 (2.9)，不过它的前身
 
 重新定义SQL中的V函数：
 
-$$ V\_{soft}(s) = \alpha log \int exp(\frac{1}{\alpha}Q\_{soft}(s,a))da \tag{2.11} $$
+$$ V\_{soft}(s) = \alpha log \int exp(\frac{1}{\alpha}Q\_{soft}(s,a))da \quad \text{2.11} $$
 
 soft 的由来：观察这个式子，其中 $log\int exp$ 这个操作就被称为"softmax"，这也是全文中“soft”的由来。与之相对应的就是 Q-learning 中使用的"hardmax": $V(s) = max\_{a}Q(s,a)$ , (2.11)等价于: $V(s) = \alpha \text{softmax}\_{a}\frac{1}{\alpha}Q(s,a) $  (注意： 越接近0，softmax 就越接近 hardmax).
 
@@ -251,7 +251,7 @@ $$ Q\^{\pi}(s,a) = r(s,a) +\gamma max\_{a\_{'}}(Q\^{\pi}(s\^{'},a\^{'})) $$
 #### 解目标函数
 虽然 (2.3) 的解可以粗暴地用policy gradient(PG)算法来逼近，不过有更巧妙的办法来简化运算。同时在这个过程中，我们可以将 soft value function 和 energy based policy联系起来，并推出Soft Q learning[SQL](https://arxiv.org/abs/1702.08165) 的值迭代算法。 [参考](https://xlnwel.github.io/blog/reinforcement%20learning/SVI/)
 
-$$ \mathcal{J}(\pi) = \sum\^{T}\_{t=1} \gamma\^{t-1}E\_{s\_{t}，a\_{t}\sim \rho\_{\pi}}[r(s\_{t},a\_{t})+\alpha\mathcal{H}(\pi(\bullet|s\_{t}))] \tag{2.12} $$
+$$ \mathcal{J}(\pi) = \sum\^{T}\_{t=1} \gamma\^{t-1}E\_{s\_{t}，a\_{t}\sim \rho\_{\pi}}[r(s\_{t},a\_{t})+\alpha\mathcal{H}(\pi(\bullet|s\_{t}))] \quad \text{2.12} $$
 
 我们要做的就是调整输入 $\pi$ ，让目标函数 $\mathcal{J}$ 最大化。那么，由易到难，先解 $\mathcal{J}$ 中的最后一项 $t=T$。此时，
 
@@ -287,7 +287,7 @@ $$ \pi(\bullet|s\_{T}) = argmax\_{\pi(\bullet|s\_{t})}E\_{a\_{t}\sim \pi(\bullet
 
 求解可得：
 
-$$ \pi(a\_{t}|s\_{t}) = exp(\frac{1}{\alpha}(Q(s\_{t},a\_{t})-V(s\_{t}))) \tag{2.13} $$
+$$ \pi(a\_{t}|s\_{t}) = exp(\frac{1}{\alpha}(Q(s\_{t},a\_{t})-V(s\_{t}))) \quad \text{2.13} $$
 
 此时，
 
@@ -317,7 +317,7 @@ $$ \pi\_{new} = argmax\_{\pi}Q\^{\pi^{old}}(s\_{t},\pi(s\_{t})), \quad\forall s\
 
 不过在MERL中，我们可以发现策略的最优解形式(2.13)已经在上一步中推导了出来，并且可以直接用值函数表达出来。所以策略迭代优化的公式刚好就是：
 
-$$ \pi\_{new} = \frac{exp(\frac{1}{\alpha}Q\^{\pi\_{old}}\_{soft}(s\_{t},a\_{t}))}{exp\frac{1}{\alpha}V\_{soft}\^{\pi\_{old}(s\_{t})}} , \quad\forall s\_{t} \tag{2.14} $$
+$$ \pi\_{new} = \frac{exp(\frac{1}{\alpha}Q\^{\pi\_{old}}\_{soft}(s\_{t},a\_{t}))}{exp\frac{1}{\alpha}V\_{soft}\^{\pi\_{old}(s\_{t})}} , \quad\forall s\_{t} \quad \text{2.14} $$
 
 在[soft Q-learning](https://arxiv.org/abs/1702.08165)论文中有证明这样的更新策略可以提升策略的表现。
 
@@ -362,14 +362,14 @@ $$
 ##### soft V function的值迭代公式：
 
 $$ 
-V\^{\pi}\_{soft}(s,a) = \mathbb{E}\_{a\sim \pi}[Q\^{\pi}\_{soft}(s,a) - \alpha log\pi(a|s)] \tag{2.9} 
+V\^{\pi}\_{soft}(s,a) = \mathbb{E}\_{a\sim \pi}[Q\^{\pi}\_{soft}(s,a) - \alpha log\pi(a|s)] \quad \text{2.9} 
 $$ 
 
 #### 2.5.2 Soft Policy Improvement
 
 SAC中的理想策略依然是(2.10)的EBP形式，不过由于EBP无法采样的问题依然存在，所以只能用一个高斯分布 $\pi$ 来代替EBP与环境交互，随后在策略优化时，让这个高斯分布尽可能向EBP靠近。 $\pi$ 与EBP的距离用KL-divergence来衡量。策略优化公式为：
 
-$$ \pi\_{new} = argmin\_{\pi\in\Pi}D\_{KL}(\pi(\bullet|s\_{t})\|\frac{exp(\frac{1}{\alpha}Q\^{\pi\^{old}}\_{soft}(s\_{t},\bullet))}{Z\^{\pi\_{old}}\_{soft}(s\_{t})}) \tag{2.15} $$
+$$ \pi\_{new} = argmin\_{\pi\in\Pi}D\_{KL}(\pi(\bullet|s\_{t})\|\frac{exp(\frac{1}{\alpha}Q\^{\pi\^{old}}\_{soft}(s\_{t},\bullet))}{Z\^{\pi\_{old}}\_{soft}(s\_{t})}) \quad \text{2.15} $$
 
 其中 $\Pi$ 表示可选的策略集合，实际上就是带参数的高斯分布的集合。$Z$ 函数代替了(2.14)中的 $exp(\frac{1}{\alpha}V\^{\pi\_{old}}\_{soft}(s\_{t}))$ 作为配分函数，用于归一化分布，不过对于 $\pi(s\_{t})$ 来说，两者都是常数，在实际计算时二者都可以直接忽略。同时也由于这个原因，在SAC中也不用再维持 $V$ 函数。
 作者在论文附录B.2中证明了这个公式可以像(2.14)一样保证策略的优化，不过实际上在后文的(2.15)展开式中可以直接发现其与DPG的联系。
@@ -382,7 +382,7 @@ SAC的实际实现中，值函数与策略各由一个由参数控制的神经�
 
 根据(2.6)，可以得出函数训练时的损失函数：
 
-$$ J\_{Q}(\theta) = \mathbb{E}\_{(s\_{t},a\_{t},s\_{t+1})\sim \mathcal{D},a\_{t+1}\sim \pi\_{\phi}}[\frac{1}{2}(Q\_{\theta}(s\_{t},a\_{t})-(r(s\_{t},a\_{t})+\gamma(Q\_{\theta}(s\_{t+1},a\_{t+1})-\alpha log(\pi\_{\phi}(\pi\_{\phi}(a\_{t+1}|s\_{t+1})))))^{2}] \tag{2.16} $$
+$$ J\_{Q}(\theta) = \mathbb{E}\_{(s\_{t},a\_{t},s\_{t+1})\sim \mathcal{D},a\_{t+1}\sim \pi\_{\phi}}[\frac{1}{2}(Q\_{\theta}(s\_{t},a\_{t})-(r(s\_{t},a\_{t})+\gamma(Q\_{\theta}(s\_{t+1},a\_{t+1})-\alpha log(\pi\_{\phi}(\pi\_{\phi}(a\_{t+1}|s\_{t+1})))))^{2}] \quad \text{2.16} $$
 
 在训练 $Q(s\_{t},a\_{t})$ 时, $(s\_{t},a\_{t})$ 是从agent与环境过往的交互中产生的数据（replay buffer）抽取出的，但 $a\_{t+1}$ 是在训练时临时从策略 $\pi\_{\phi}$ 中采集出来的。根据(2.15), 可以得出训练策略 $\pi\_{\phi}$ 时的损失函数：
 
@@ -401,7 +401,7 @@ $$ a\_{t} = f\_{\phi}(\varepsilon\_{t};s\_{t}) = f\^{\mu}\_{\phi}(s\_{t})+\varep
 
 同时，由于在对策略的参数求导时, $Z$ 不受策略参数 $\phi$ 影响，所以直接将其忽略。最终得到：
 
-$$ J\_{\pi}(\phi) = \mathbb{E}\_{s\_{t}\sim\mathcal{D},\varepsilon\sim\mathcal{N}}[\alpha log\pi\_{\phi}(f\_{\phi}(\varepsilon\_{t};s\_{t})|s\_{t}) - Q\_{\theta}(s\_{t},f\_{\phi}(\varepsilon\_{t};s\_{t}))]  \tag{2.17} $$
+$$ J\_{\pi}(\phi) = \mathbb{E}\_{s\_{t}\sim\mathcal{D},\varepsilon\sim\mathcal{N}}[\alpha log\pi\_{\phi}(f\_{\phi}(\varepsilon\_{t};s\_{t})|s\_{t}) - Q\_{\theta}(s\_{t},f\_{\phi}(\varepsilon\_{t};s\_{t}))]  \quad \text{2.17} $$
 
 最后，只需要不断收集数据，缩小这两个损失函数，就可以得到收敛到一个解。在初版的SAC中，作者表示同时维持两个值函数，可以使训练更加稳定，不过在第二版中，作者引入了自动调整温度系数 $\alpha$ 的方法，使得SAC更加稳定，于是就只保留了 $Q$ 函数。
 
@@ -412,9 +412,9 @@ SAC中借用了许多提升性能的技巧，包括[double Q network](https://pr
 #### 2.6.1 Automating Entropy Adjustment for MERL
 前文提到过，温度系数 $\alpha$ 作为一个超参数，可以控制MERL对熵的重视程度。但是不同的强化学习任务，甚至同一任务训练到不同时期，都各自有自己适合的 $\alpha$ ，而且这个超参数对性能的影响明显。还好，这个参数可以让SAC自己调节。作者将其构造为一个带约束的优化问题：最大化期望收益的同时，保持策略的熵大于一个阈值。
 
-$$ max\_{\pi\_{0},..,\pi\_{T}}\mathbb{E}[\sum\^{T}\_{t=0}r(s\_{t},a\_{t})] \quad\text{s.t.}\forall t,\mathcal{H}(\pi\_{t})\geqslant\mathcal{H}\_{0} \tag{2.18} $$
+$$ max\_{\pi\_{0},..,\pi\_{T}}\mathbb{E}[\sum\^{T}\_{t=0}r(s\_{t},a\_{t})] \quad\text{s.t.}\forall t,\mathcal{H}(\pi\_{t})\geqslant\mathcal{H}\_{0} \quad \text{2.18} $$
 
 $\mathcal{H}\_{0}$ 是预先定义好的最小策略熵的阈值。
 根据(2.18), 最终得到需要优化的损失函数([ref](https://lilianweng.github.io/posts/2018-04-08-policy-gradient/)):
 
-$$ J(\alpha) = \mathbb{E}\_{a\_{t}\sim\pi\_{t}}[-\alpha log\pi\_{t}(a\_{t}|\pi\_{t})-\alpha\mathcal{H}\_{0}]  \tag{2.19}$$
+$$ J(\alpha) = \mathbb{E}\_{a\_{t}\sim\pi\_{t}}[-\alpha log\pi\_{t}(a\_{t}|\pi\_{t})-\alpha\mathcal{H}\_{0}]  \quad \text{2.19}$$
