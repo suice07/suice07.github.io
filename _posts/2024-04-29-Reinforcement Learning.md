@@ -38,11 +38,9 @@ $$
 $$
 
 策略函数由参数 $\theta$ 确定，将状态空间的一个点映射到动作空间的一个点，这也就是决策过程。算法公式：定义了DPG需要的两个主要成分后，利用critic直接优化actor的思想，就有了DPG的核心公式：
-
 $$ 
 \max_{\theta} \mathbb{E}_{s \sim \text{Data}}[Q^{\mu}_{\omega}(s,\mu_{\theta}(s))] \quad \text{(1.1)} 
 $$
-
 此时, $Q$ 函数参数固定，只调整策略函数 $\mu$ ; $Q$ 函数另外单独训练，训练方式同 Q-learning(须额外描述)。
 
 寻找最优决策：DPG的最终目的还是在于调整策略，所以先假设已有最优的critic: $Q^{*}$ ,在 $t$ 时刻遇到某个状态 $s_{t}$ ,要求此刻最优动作 $a_{t}^{*}$ , 我们需要做的就是固定住 $Q^{*}$ 函数输入端 $(s,a)$ 当中的状态 $s$ 为 $s_{t}$ ,不断调整输入动作 $a$ ，直到 $Q^{*}$ 的输出值最大，此时的动作 $a$ 即为最优决策 $a_{t}^{*}$, 这个操作等价于一般的Q-learning中的greedy决策方式：
@@ -82,11 +80,9 @@ PPO是TRPO([Trust Region Policy Optimization](https://arxiv.org/abs/1502.05477))
 
 PPO同样使用了AC框架，不过相比DPG更加接近传统的PG算法，采用的是随机分布式的策略函数（Stochastic Policy），智能体（agent）每次决策时都要从策略函数输出的分布中采样，得到的样本作为最终执行的动作，因此天生具备探索环境的能力，不需要为了探索环境给决策加上扰动；PPO的重心会放到actor上，仅仅将critic当做一个预测状态好坏（在该状态获得的期望收益）的工具，策略的调整基准在于获取的收益，不是critic的导数。
 
-PPO的思路：
+#### PPO的思路：
 
-PPO的基本思想跟PG算法一致，便是直接根据策略的收益好坏来调整策略。
-
-作为一个AC算法，它的基本框架跟[Stochastic Actor-critic](https://proceedings.neurips.cc/paper_files/paper/1999/file/464d828b85b0bed98e80ade0a5c43b0f-Paper.pdf)算法一致，所以先定义PPO的策略函数actor：此时动作 $a$ 服从一个受参数 $\theta$ 控制的条件分布，可以理解为，假如面对某个状态 $s_{t}$ ，agent做出决策动作 $a_{t}$ 的概率 $\mathbb{P}(a_{t}|s_{t};\theta) = \pi_{\theta}(a_{t}|s_{t})$
+PPO的基本思想跟PG算法一致，便是直接根据策略的收益好坏来调整策略。作为一个AC算法，它的基本框架跟[Stochastic Actor-critic](https://proceedings.neurips.cc/paper_files/paper/1999/file/464d828b85b0bed98e80ade0a5c43b0f-Paper.pdf)算法一致，所以先定义PPO的策略函数actor：此时动作 $a$ 服从一个受参数 $\theta$ 控制的条件分布，可以理解为，假如面对某个状态 $s_{t}$ ,agent做出决策动作 $a_{t}$ 的概率 $\mathbb{P}(a_{t}|s_{t};\theta) = \pi_{\theta}(a_{t}|s_{t})$
 
 
 再定义一个值函数critic： $V_{\omega}^{\pi}(s) : S \rightarrow \mathbb{R}$
