@@ -172,13 +172,13 @@ SAC中的熵（entropy）可以理解为混乱度，无序度，随机程度，�
 **熵的计算**：熵是用于衡量随机变量的随机性，实际计算时直接考虑其服从的随机分布。现在要计算变量 $x$ 的熵值 ，而 $x$ 服从分布 $P$ ，则 $x$ 的熵 $H(P)$ 为: $H(P) = E_{x\sim P}[-logP(x)]$ ，标准的RL算法目标，是找到能收集最多累计收益的策略，表达式为：
 
 $$ 
-\pi^{*}_{std} = argmax_{\pi} \sum_{t}\mathbb{E}_{(s_{t},a_{t})\sim \rho_{\pi}}[r(s_{t}, a_{t})]  \quad \text{(2.2)} 
+\pi^{\*}_{std} = argmax_{\pi} \sum_{t}\mathbb{E}_{(s_{t},a_{t})\sim \rho_{\pi}}[r(s_{t}, a_{t})]  \quad \text{(2.2)} 
 $$
 
 而引入了熵最大化的RL算法的目标策略：
 
 $$ 
-\pi^{*}_{MaxEnt} = argmax_{\pi} \sum_{t}\mathbb{E}_{(s_{t},a_{t})\sim \rho_{\pi}}[r(s_{t}, a_{t}) + \alpha H(\pi(\bullet|s_{t}))]  \quad \text{(2.3)} 
+\pi^{\*}_{MaxEnt} = argmax_{\pi} \sum_{t}\mathbb{E}_{(s_{t},a_{t})\sim \rho_{\pi}}[r(s_{t}, a_{t}) + \alpha H(\pi(\bullet|s_{t}))]  \quad \text{(2.3)} 
 $$
 
 $\rho$ 表示在策略 $\pi$ 控制下，智能体(agent)会遇到的状态动作对(state-action pair)所服从的分布。$\alpha$ 为超参数(温度系数)，用于调整对熵值的重视程度。 
