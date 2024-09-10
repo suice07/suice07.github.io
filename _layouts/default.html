@@ -2,7 +2,6 @@
 <html lang="en">
 
 {% include head.html %}
-{% include mathjax.html %}
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
 
@@ -11,7 +10,23 @@
     {{ content }}
 
     {% include footer.html %}
-
+    <!-- MathJax Configuration -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                tags: 'ams' // 启用 AMS 标签支持
+            },
+            options: {
+                renderActions: {
+                    findScript: [10, function () {}, '']
+                }
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 <!-- Image to hack wechat -->
 <img src="/img/apple-touch-icon.png" width="0" height="0" />
