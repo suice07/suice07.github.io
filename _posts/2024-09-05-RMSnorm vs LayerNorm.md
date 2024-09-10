@@ -13,27 +13,27 @@ RMSNorm 是对输入进行归一化的技术，类似于批量归一化（Batch 
 
 1. 计算均方根：
 
-   $$
-   \text{RMS}(\mathbf{x}) = \sqrt{\frac{1}{N} \sum_{i=1}^{N} x_i^2}
-   $$
+$$
+\text{RMS}(\mathbf{x}) = \sqrt{\frac{1}{N} \sum_{i=1}^{N} x_{i}^{2}
+$$
 
    其中 $N$ 是输入向量的维度。
 
 2. 归一化：
 
-   $$
-   \mathbf{x}_{\text{norm}} = \frac{\mathbf{x}}{\text{RMS}(\mathbf{x}) + \epsilon}
-   $$
+$$
+\mathbf{x}_{\text{norm}} = \frac{\mathbf{x}}{\text{RMS}(\mathbf{x}) + \epsilon}
+$$
 
    这里 $\epsilon$ 是一个小的常数，用于避免除以零。
 
 3. 可选的缩放和偏置：
 
-   $$
-   \mathbf{y} = \gamma \cdot \mathbf{x}_{\text{norm}} + \beta
-   $$
+$$
+\mathbf{y} = \gamma \cdot \mathbf{x}_{\text{norm}} + \beta
+$$
 
-   其中 $\gamma$ 和 $\beta$ 是可学习的参数，用于恢复模型表达能力。
+其中 $\gamma$ 和 $\beta$ 是可学习的参数，用于恢复模型表达能力。
 
 ### 2. 优势
 
