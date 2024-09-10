@@ -14,10 +14,10 @@ RMSNorm 是对输入进行归一化的技术，类似于批量归一化（Batch 
 1. 计算均方根：
 
 $$
-\text{RMS}(\mathbf{x}) = \sqrt{\frac{1}{N} \sum_{i=1}^{N} x_{i}^{2}
+\text{RMS}(\mathbf{x}) = \sqrt{\frac{1}{N} \sum_{i=1}^{N} x_{i}^{2}}
 $$
 
-   其中 $N$ 是输入向量的维度。
+其中 $N$ 是输入向量的维度。
 
 2. 归一化：
 
