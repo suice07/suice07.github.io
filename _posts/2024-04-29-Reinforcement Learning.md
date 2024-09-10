@@ -361,7 +361,9 @@ $$
 
 ##### soft V function的值迭代公式：
 
-$$ V\^{\pi}\_{soft}(s,a) = \mathbb{E}\_{a\sim \pi}[Q\^{\pi}\_{soft}(s,a) - \alpha log\pi(a|s)] \tag{2.9} $$ 
+$$ 
+V\^{\pi}\_{soft}(s,a) = \mathbb{E}\_{a\sim \pi}[Q\^{\pi}\_{soft}(s,a) - \alpha log\pi(a|s)] \tag{2.9} 
+$$ 
 
 #### 2.5.2 Soft Policy Improvement
 
