@@ -1,5 +1,3 @@
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
-
 ## Flash Attention
 
 **Flash Attention** 是一种针对 Transformer 模型中自注意力机制的高效实现，旨在提升计算效率和降低内存使用。以下是对 Flash Attention 的详细介绍：
