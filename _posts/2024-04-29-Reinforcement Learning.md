@@ -317,9 +317,9 @@ $$
 \end{aligned} 
 $$
 
-既然要最大化右式，那么让其对 $\pi(a_{T}|s_{T})$ 求导，令导数为零，可以求得解：
+既然要最大化右式，那么让其对 $\pi(a_{T}\|s_{T})$ 求导，令导数为零，可以求得解：
 
-$$ \pi(a_{T}|s_{T}) = \frac{exp(\frac{1}{\alpha}r(s_{T},a_{T}))}{\int exp \frac{1}{\alpha}r(s_{T},a)} da $$
+$$ \pi(a_{T}\|s_{T}) = \frac{exp(\frac{1}{\alpha}r(s_{T},a_{T}))}{\int exp \frac{1}{\alpha}r(s_{T},a)} da $$
 
 [参考](https://blog.csdn.net/qq_25156657/article/details/85992203)，根据(2.4)(2.11), 此时：
 
