@@ -135,8 +135,8 @@ $$
 其中 $\epsilon$ 是一个需要手动调整的参数，大于0。在clip函数的帮助下, $\frac{\pi_{\theta}(a|s)}{\pi_{\theta_{k}}(a|s)}$ 的值被限制在 $(1-\epsilon, 1+\epsilon)$ 中，确定了策略优化时的变化幅度不会太大。
 
 ##### 1.2.3.1 [图解PPO](https://jonathan-hui.medium.com/rl-proximal-policy-optimization-ppo-explained-77f014ec3f12)
-![pgpic](../img/pg_pic.png)
-![ppopic](../img/ppo_pic.png)
+![pgpic](https://github.com/suice07/suice07.github.io/blob/master/img/pg_pic.png)
+![ppopic](https://github.com/suice07/suice07.github.io/blob/master/img/ppo_pic.png)
 
 可以看出，PPO相比原始的PG算(及AC算法)法最为不同的地方在于(左为PG，右为PPO)，每次优化策略时，让策略（参数）朝着优化的方向改进，同时将策略变化限制在一定的范围内。综合起来就是，PPO即希望快点上山，又要注意不能掉下去； 而传统的PG算法则只管用最快速度上山。虽然PPO生硬地限制了策略的更新速度，但是也尽可能保证了更新后的策略不会崩溃（掉下山），最终在效率上PPO反而可以更胜一筹。
 
@@ -257,12 +257,12 @@ $$
 
 下图展示了一般的高斯分布策略（左）与基于能量的策略（右）的区别。可以看出基于能量的模型在面对多模态（multimodal）的值函数 $Q(s,a)$ 时，具有更强的策略表达能力，而一般的高斯分布只能将决策集中在 值更高的部分，忽略其他次优解。
 
-![pgpic](../img/multimodal_q_func.png) [source](https://bair.berkeley.edu/blog/2017/10/06/soft-q-learning/)
+![pgpic](https://github.com/suice07/suice07.github.io/blob/master/img/multimodal_q_func.png) [source](https://bair.berkeley.edu/blog/2017/10/06/soft-q-learning/)
 
 ### 2.4 Soft Policy Evaluation and Soft Policy Improvement in Soft Q-learning
 
 有了MERL框架中值函数与策略的基本定义后，我们就可以开始构建MERL框架下的算法。与标准的RL一样，MERL算法同样包括策略评估（Policy Evaluation），与策略优化（Policy Improvement），在这两个步骤交替运行下，值函数与策略都可以不断逼近最优。最终足够优秀的策略便可用于实际应用。
-![policy_pic](../img/policy_iteration.png)
+![policy_pic](https://github.com/suice07/suice07.github.io/blob/master/img/policy_iteration.png)
 
 #### 2.4.1 Soft Policy Evaluation
 先要想办法给 soft value function $(V_{soft},Q_{soft})$ 填上正确的值，让它们可以逼近理论上的真实结果 (2.5), (2.4)，正确地预测策略能给 agent 带来的收益，这一步就被称为策略评估（policy evaluation）。然而，直接按照 (2.5), (2.4) 计算真值并不现实，所以就需要像Q-learning一样，通过不断地值迭代（value iteration），让 $Q$ 函数逼近最优 $Q_{*}$ 。
