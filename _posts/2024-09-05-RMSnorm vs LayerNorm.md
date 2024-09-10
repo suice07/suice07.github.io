@@ -1,4 +1,4 @@
-# RMSnorm vs LayerNorm
+# RMSNorm vs LayerNorm
 
 RMSNorm（Root Mean Square Normalization）是一种归一化方法，主要用于深度学习模型中，特别是在训练大规模神经网络时。它的主要目的是提高模型的训练稳定性和加速收敛。
 
