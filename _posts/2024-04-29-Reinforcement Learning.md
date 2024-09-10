@@ -124,7 +124,7 @@ $$
 
 原本 $A(s,a)$ 这个位置是决策的期望收益即 $Q(s,a)$ ，不过用 advantage 代替期望收益可以增加算法的稳定性，不过无论用哪个，公式的目的都是通过调整策略获取更高的期望收益。
 
-可以理解为，如果 $A(s,a)$ 值为正，则提高 $\pi_{(a|s)}$ ，以增加相应决策出现的概率；反之则降低概率。
+可以理解为，如果 $A(s,a)$ 值为正，则提高 $\pi_{(a \| s)}$ ，以增加相应决策出现的概率；反之则降低概率。
 
 #### 1.2.2 [importance sampling](https://jonathan-hui.medium.com/rl-importance-sampling-ebfb28b4a8c6)技术，使其成为off-policy算法：
 
