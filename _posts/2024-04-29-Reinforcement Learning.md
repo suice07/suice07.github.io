@@ -154,7 +154,7 @@ $$ \pi\^{*}\_{std} = argmax\_{\pi} \sum\_{t}\mathbb{E}\_{(s\_{t},a\_{t})\sim \rh
 
 而引入了熵最大化的RL算法的目标策略：
 
-$$ \pi\^{*}\_{MaxEnt} = argmax\_{\pi} \sum\_{t}\mathbb{E}\_{(s\_{t},a\_{t})\sim \rho\_{\pi}}[r(s\_{t}, a\_{t}) + \alpha H(\pi(\bullet|s\_{t}))]  \quad \text{(2.3)} $$
+$$ \pi^{*}_{MaxEnt} = argmax\_{\pi} \sum\_{t}\mathbb{E}\_{(s\_{t},a\_{t})\sim \rho\_{\pi}}[r(s\_{t}, a\_{t}) + \alpha H(\pi(\bullet|s\_{t}))]  \quad \text{(2.3)} $$
 
 $\rho$ 表示在策略 $\pi$ 控制下，智能体(agent)会遇到的状态动作对(state-action pair)所服从的分布。$\alpha$ 为超参数(温度系数)，用于调整对熵值的重视程度。 
 
