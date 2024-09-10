@@ -101,6 +101,7 @@ $$
 $$ 
 V^{\pi}(s) = \mathbb{E}_{a \sim \pi(\bullet|s)}[Q^{\pi}(s,a)] 
 $$
+
 $$ 
 Q^{\pi}(s,a) = r(s,a)+\gamma\mathbb{E}_{s'\sim p(s'|s,a)(V^{\pi}(s'))} 
 $$
