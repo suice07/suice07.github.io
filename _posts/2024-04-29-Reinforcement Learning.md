@@ -177,7 +177,7 @@ $$ V\^{\pi}(s,a) = \mathbb{E}\_{s\_{t},a\_{t}\sim \rho\_{\pi}}[\sum\^{\infty}\_{
 根据MERL的目标函数(2.3), 引入熵, 得出**Soft Value Function(SVF)**:
 soft Q function:
 
-$$ Q\^{\pi}\_{soft}(s,a) = \mathbb{E}[\sum\^{\infty}\_{t=0}\gamma\^{t}r(s\_{t},a\_{t})+\alpha\sum\^{\infty}\_{t=0}\gamma\^{t}H(\pi(\bullet|s\_{t}))|s\_{0} = s,a\_{0} = a]  \tag{2.4} $$
+$$ Q\^{\pi}\_{soft}(s,a) = \mathbb{E}[\sum\^{\infty}\_{t=0}\gamma\^{t}r(s\_{t},a\_{t})+\alpha\sum\^{\infty}\_{t=0}\gamma\^{t}H(\pi(\bullet|s\_{t}))|s\_{0} = s,a\_{0} = a]  \quad \text{(2.4)} $$
 
 soft V function:
 
