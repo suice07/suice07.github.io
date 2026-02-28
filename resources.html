@@ -1,0 +1,65 @@
+---
+layout: page
+title: "Resources"
+description: "Useful references and cheat sheets."
+header-img: "img/post-bg-coffee.jpeg"
+---
+
+<!-- PDF Resources Page -->
+<style>
+    .pdf-section {
+        margin-bottom: 50px;
+    }
+    .pdf-section h3 {
+        margin-bottom: 5px;
+        font-weight: 700;
+        color: #404040;
+    }
+    .pdf-section .pdf-desc {
+        color: #808080;
+        font-size: 15px;
+        margin-bottom: 15px;
+    }
+    .pdf-section .pdf-desc a {
+        color: #337ab7;
+        text-decoration: none;
+    }
+    .pdf-section .pdf-desc a:hover {
+        color: #0085a1;
+        text-decoration: underline;
+    }
+    .pdf-viewer {
+        width: 100%;
+        height: 800px;
+        border: 1px solid #dfe2e5;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    @media only screen and (max-width: 768px) {
+        .pdf-viewer {
+            height: 500px;
+        }
+    }
+</style>
+
+<div class="post-container">
+
+    <div class="pdf-section">
+        <h3>📐 Gaussian Max</h3>
+        <p class="pdf-desc">
+            高斯分布相关推导参考资料。
+            <a href="{{ site.baseurl }}/pdf/gaussian_max.pdf" target="_blank">↗ 新窗口打开</a>
+        </p>
+        <iframe class="pdf-viewer" src="{{ site.baseurl }}/pdf/gaussian_max.pdf" frameborder="0"></iframe>
+    </div>
+
+    <div class="pdf-section">
+        <h3>📝 LaTeX Symbols Cheat Sheet</h3>
+        <p class="pdf-desc">
+            LaTeX 常用符号速查表。
+            <a href="{{ site.baseurl }}/pdf/latex_symbols.pdf" target="_blank">↗ 新窗口打开</a>
+        </p>
+        <iframe class="pdf-viewer" src="{{ site.baseurl }}/pdf/latex_symbols.pdf" frameborder="0"></iframe>
+    </div>
+
+</div>
