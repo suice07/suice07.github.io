@@ -4,7 +4,7 @@ title:      "Attention vs Flash Attention"
 subtitle:   "从传统注意力机制到 Flash Attention 的效率革命"
 date:       2024-09-06
 author:     "Suice"
-header-img: "img/post-bg-2015.jpg"
+header-img: "img/post-bg-coffee.jpeg"
 catalog:    true
 tags:
     - Deep Learning
