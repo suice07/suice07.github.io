@@ -1,16 +1,18 @@
-/* to make lines scroll instead of wrap */
+/* to make lines wrap instead of scroll */
 /* from http://stackoverflow.com/a/23393920 */
 
-.highlight pre code * {
-  white-space: nowrap;    // this sets all children inside to nowrap
-}
-
 .highlight pre {
-  overflow-x: auto;       // this sets the scrolling in x
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+  overflow-x: auto;
 }
 
 .highlight pre code {
-  white-space: pre;       // forces <code> to respect <pre> formatting
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
 
