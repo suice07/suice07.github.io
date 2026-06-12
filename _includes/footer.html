@@ -93,12 +93,7 @@
                 <p class="copyright text-muted">
                     Copyright &copy; {{ site.title }} {{ site.time | date: '%Y' }}
                     <br>
-                    Theme on <a href="{{ site.github_repo }}">GitHub</a> |
-                    <iframe
-                        style="margin-left: 2px; margin-bottom:-5px;"
-                        frameborder="0" scrolling="0" width="100px" height="20px"
-                        src="https://ghbtns.com/github-btn.html?user={{ site.github_username }}&repo={{ site.github_username }}.github.io&type=star&count=true" >
-                    </iframe>
+                    Theme on <a href="{{ site.github_repo }}">GitHub</a>
                 </p>
             </div>
         </div>
@@ -126,6 +121,25 @@
     }
 </script>
 {% endif %}
+
+<!-- Clear legacy service-worker caches. -->
+<script type="text/javascript">
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            registrations.forEach(function(registration) {
+                registration.unregister();
+            });
+        });
+    }
+
+    if ('caches' in window) {
+        caches.keys().then(function(keys) {
+            keys.forEach(function(key) {
+                caches.delete(key);
+            });
+        });
+    }
+</script>
 
 
 <!-- async load function -->
@@ -267,4 +281,3 @@
     });
 </script>
 {% endif %}
-
