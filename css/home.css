@@ -6,6 +6,8 @@
     --home-accent: #e2483f;
     --home-green: #315b4c;
     --home-blue: #203a57;
+    --home-sans: "Avenir Next", "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --home-display: "Avenir Next", "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 html {
@@ -15,7 +17,8 @@ html {
 body {
     background: var(--home-paper);
     color: var(--home-ink);
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: var(--home-sans);
+    font-weight: 300;
 }
 
 body,
@@ -38,8 +41,8 @@ body,
 .navbar-custom .navbar-brand,
 .navbar-custom .nav li a {
     color: var(--home-ink);
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-weight: 700;
+    font-family: var(--home-sans);
+    font-weight: 500;
 }
 
 .navbar-custom .nav li a:hover,
@@ -83,17 +86,17 @@ body,
     margin: 0 0 22px;
     color: var(--home-accent);
     font-size: 12px;
-    font-weight: 800;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0;
 }
 
 .hero-copy h1 {
     margin: 0;
-    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    font-family: var(--home-display);
     font-size: 148px;
     line-height: 0.86;
-    font-weight: 900;
+    font-weight: 600;
     text-transform: uppercase;
 }
 
@@ -106,6 +109,7 @@ body,
     margin: 28px 0 0;
     color: #303236;
     font-size: 22px;
+    font-weight: 300;
     line-height: 1.55;
 }
 
@@ -128,7 +132,7 @@ body,
     border: 2px solid var(--home-ink);
     color: var(--home-ink);
     font-size: 14px;
-    font-weight: 800;
+    font-weight: 500;
     text-decoration: none;
     transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
@@ -198,7 +202,7 @@ body,
     bottom: 28px;
     color: var(--home-muted);
     font-size: 12px;
-    font-weight: 800;
+    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0;
     text-decoration: none;
@@ -237,17 +241,22 @@ body,
 .section-heading h2,
 .contact-section h2 {
     margin: 0;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: var(--home-display);
     font-size: 48px;
-    line-height: 1.08;
-    font-weight: 700;
+    line-height: 1.12;
+    font-weight: 400;
 }
 
 .profile-copy p {
     margin: 0;
     color: rgba(247, 245, 239, 0.82);
-    font-size: 19px;
-    line-height: 1.8;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.9;
+}
+
+.profile-copy strong {
+    font-weight: 500;
 }
 
 .stats-row {
@@ -265,9 +274,10 @@ body,
 .stats-row strong {
     display: block;
     color: var(--home-accent);
-    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-    font-size: 42px;
-    line-height: 1;
+    font-family: var(--home-display);
+    font-size: 38px;
+    font-weight: 500;
+    line-height: 1.05;
 }
 
 .stats-row span {
@@ -275,7 +285,7 @@ body,
     margin-top: 8px;
     color: rgba(247, 245, 239, 0.72);
     font-size: 12px;
-    font-weight: 800;
+    font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0;
 }
@@ -322,16 +332,17 @@ body,
 .work-card span {
     color: var(--home-accent);
     font-size: 13px;
-    font-weight: 900;
+    font-weight: 500;
 }
 
 .work-card h3,
 .note-card h3 {
     margin: 0;
     color: var(--home-ink);
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: var(--home-display);
     font-size: 25px;
-    line-height: 1.18;
+    font-weight: 400;
+    line-height: 1.2;
 }
 
 .work-card p,
@@ -339,6 +350,7 @@ body,
     margin: 22px 0 0;
     color: var(--home-muted);
     font-size: 16px;
+    font-weight: 300;
     line-height: 1.65;
 }
 
@@ -371,7 +383,7 @@ body,
     margin-bottom: 24px;
     color: var(--home-green);
     font-size: 12px;
-    font-weight: 900;
+    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0;
 }
@@ -380,7 +392,7 @@ body,
     margin-top: auto;
     color: var(--home-accent);
     font-size: 13px;
-    font-weight: 900;
+    font-weight: 500;
 }
 
 .contact-section {
