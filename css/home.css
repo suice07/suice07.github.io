@@ -192,44 +192,6 @@ body,
     box-shadow: 0 24px 70px rgba(16, 17, 19, 0.22);
 }
 
-.focus-card {
-    position: absolute;
-    z-index: 3;
-    width: 168px;
-    padding: 16px;
-    background: #ffffff;
-    border: 1px solid var(--home-line);
-    border-radius: 8px;
-    box-shadow: 0 16px 38px rgba(16, 17, 19, 0.13);
-}
-
-.focus-card span {
-    display: block;
-    margin-bottom: 5px;
-    color: var(--home-accent);
-    font-size: 11px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0;
-}
-
-.focus-card strong {
-    display: block;
-    color: var(--home-ink);
-    font-size: 18px;
-    line-height: 1.12;
-}
-
-.focus-card-top {
-    top: 76px;
-    right: 12px;
-}
-
-.focus-card-bottom {
-    left: 2px;
-    bottom: 88px;
-}
-
 .scroll-cue {
     position: absolute;
     left: 5%;
@@ -494,15 +456,6 @@ footer {
 
     .hero-visual {
         min-height: 340px;
-    }
-
-    .focus-card {
-        width: 138px;
-        padding: 12px;
-    }
-
-    .focus-card strong {
-        font-size: 15px;
     }
 
     .profile-section,
