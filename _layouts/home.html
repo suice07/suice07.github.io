@@ -1,0 +1,117 @@
+---
+layout: default
+---
+
+<main class="portfolio-home">
+    <section class="hero-panel" id="top">
+        <div class="hero-copy">
+            <p class="eyebrow">Algorithm engineer / LLM systems / Research notes</p>
+            <h1>Suice<span>.</span></h1>
+            <p class="hero-subtitle">I build and write about learning systems: from reinforcement learning and efficient attention to the engineering details behind modern LLM training.</p>
+            <div class="hero-actions">
+                <a class="button-primary" href="#writing">Read notes</a>
+                <a class="button-secondary" href="{{ '/about.html' | prepend: site.baseurl }}">About me</a>
+            </div>
+        </div>
+        <div class="hero-visual" aria-label="Portrait and focus areas">
+            <img src="{{ '/img/pscd.jpg' | prepend: site.baseurl }}" alt="Suice portrait">
+            <div class="focus-card focus-card-top">
+                <span>Focus</span>
+                <strong>Deep Learning</strong>
+            </div>
+            <div class="focus-card focus-card-bottom">
+                <span>Writing</span>
+                <strong>Systems Notes</strong>
+            </div>
+        </div>
+        <a class="scroll-cue" href="#profile" aria-label="Scroll to profile">Scroll</a>
+    </section>
+
+    <section class="profile-section" id="profile">
+        <div class="section-kicker">Profile</div>
+        <div class="profile-grid">
+            <h2>Turning dense ML ideas into practical engineering judgment.</h2>
+            <div class="profile-copy">
+                <p>Hey, this is <strong>Suice(Auier)</strong>, an algorithm engineer based in Hangzhou. This site is where I keep technical notes, model-training intuition, and the occasional bridge between math, code, and product reality.</p>
+                <div class="stats-row">
+                    <div>
+                        <strong>{{ site.posts | size }}</strong>
+                        <span>Published notes</span>
+                    </div>
+                    <div>
+                        <strong>LLM</strong>
+                        <span>Main direction</span>
+                    </div>
+                    <div>
+                        <strong>RL</strong>
+                        <span>Research thread</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="work-section" id="work">
+        <div class="section-heading">
+            <div>
+                <div class="section-kicker">Work</div>
+                <h2>Current technical map</h2>
+            </div>
+            <a href="{{ '/tags.html' | prepend: site.baseurl }}">Browse tags</a>
+        </div>
+        <div class="work-grid">
+            <article class="work-card">
+                <span>01</span>
+                <h3>Large-model training</h3>
+                <p>SFT, DeepSpeed, memory optimization, and the practical constraints that shape model behavior.</p>
+            </article>
+            <article class="work-card">
+                <span>02</span>
+                <h3>Efficient attention</h3>
+                <p>From standard self-attention to FlashAttention, with an eye on IO, kernels, and numerical tradeoffs.</p>
+            </article>
+            <article class="work-card">
+                <span>03</span>
+                <h3>Reinforcement learning</h3>
+                <p>Policy optimization, actor-critic methods, and notes that connect equations to agent behavior.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="writing-section" id="writing">
+        <div class="section-heading">
+            <div>
+                <div class="section-kicker">Writing</div>
+                <h2>Latest notes</h2>
+            </div>
+            <a href="{{ '/feed.xml' | prepend: site.baseurl }}">RSS</a>
+        </div>
+        <div class="post-grid">
+            {% for post in site.posts limit:6 %}
+            <article class="note-card">
+                <a href="{{ post.url | prepend: site.baseurl }}">
+                    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+                    <h3>{{ post.title }}</h3>
+                    {% if post.subtitle %}
+                    <p>{{ post.subtitle }}</p>
+                    {% else %}
+                    <p>{{ post.content | strip_html | truncate: 120 }}</p>
+                    {% endif %}
+                    <span>Read note</span>
+                </a>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div>
+            <div class="section-kicker">Contact</div>
+            <h2>Build, discuss, write.</h2>
+        </div>
+        <div class="contact-links">
+            <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+            <a href="https://github.com/{{ site.github_username }}">GitHub</a>
+        </div>
+    </section>
+</main>
