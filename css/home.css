@@ -432,6 +432,94 @@ body,
     color: var(--home-paper);
 }
 
+.notes-index {
+    min-height: 100vh;
+    background: var(--home-paper);
+}
+
+.notes-hero,
+.notes-list-section {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.notes-hero {
+    padding-top: 140px;
+    padding-bottom: 64px;
+    background: linear-gradient(180deg, #ffffff 0%, var(--home-paper) 100%);
+}
+
+.notes-hero h1 {
+    margin: 0;
+    color: var(--home-ink);
+    font-family: var(--home-display);
+    font-size: 72px;
+    font-weight: 400;
+    line-height: 1.05;
+}
+
+.notes-hero p {
+    max-width: 760px;
+    margin: 24px 0 0;
+    color: var(--home-muted);
+    font-size: 19px;
+    font-weight: 300;
+    line-height: 1.7;
+}
+
+.notes-list-section {
+    padding-top: 24px;
+    padding-bottom: 96px;
+}
+
+.notes-list {
+    max-width: 980px;
+}
+
+.notes-list-item {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 28px;
+    padding: 28px 0;
+    border-top: 1px solid var(--home-line);
+}
+
+.notes-list-item:last-child {
+    border-bottom: 1px solid var(--home-line);
+}
+
+.notes-list-item time {
+    color: var(--home-green);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.notes-list-item a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.notes-list-item h2 {
+    margin: 0;
+    color: var(--home-ink);
+    font-family: var(--home-display);
+    font-size: 27px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.notes-list-item p {
+    margin: 12px 0 0;
+    color: var(--home-muted);
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.65;
+}
+
+.notes-list-item a:hover h2 {
+    color: var(--home-accent);
+}
+
 footer {
     background: #ffffff;
     margin-top: 0;
@@ -492,8 +580,19 @@ footer {
 
     .profile-grid h2,
     .section-heading h2,
-    .contact-section h2 {
+    .contact-section h2,
+    .notes-hero h1 {
         font-size: 34px;
+    }
+
+    .notes-hero {
+        padding-top: 104px;
+        padding-bottom: 48px;
+    }
+
+    .notes-list-item {
+        grid-template-columns: 1fr;
+        gap: 10px;
     }
 
     .section-heading {

@@ -1,0 +1,34 @@
+---
+layout: default
+title: "Notes"
+description: "All technical notes."
+permalink: /notes/
+custom_css:
+    - /css/home.css
+---
+
+<main class="portfolio-home notes-index">
+    <section class="notes-hero">
+        <div class="section-kicker">Notes</div>
+        <h1>All notes</h1>
+        <p>Technical writing, research summaries, and engineering notes collected in one place.</p>
+    </section>
+
+    <section class="notes-list-section">
+        <div class="notes-list">
+            {% for post in site.posts %}
+            <article class="notes-list-item">
+                <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+                <a href="{{ post.url | prepend: site.baseurl }}">
+                    <h2>{{ post.title }}</h2>
+                    {% if post.subtitle %}
+                    <p>{{ post.subtitle }}</p>
+                    {% else %}
+                    <p>{{ post.content | strip_html | truncate: 150 }}</p>
+                    {% endif %}
+                </a>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+</main>

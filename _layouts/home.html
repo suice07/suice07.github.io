@@ -76,7 +76,7 @@ layout: default
                 <div class="section-kicker">Writing</div>
                 <h2>Latest notes</h2>
             </div>
-            <a href="{{ '/feed.xml' | prepend: site.baseurl }}">RSS</a>
+            <a href="{{ '/notes/' | prepend: site.baseurl }}">All notes</a>
         </div>
         <div class="post-grid">
             {% for post in site.posts limit:6 %}
